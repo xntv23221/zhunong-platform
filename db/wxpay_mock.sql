@@ -1,0 +1,22 @@
+-- 模拟微信支付表（后端启动时也会自动 CREATE TABLE IF NOT EXISTS）
+CREATE TABLE IF NOT EXISTS wxpay_transaction (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  out_trade_no VARCHAR(64) NOT NULL UNIQUE COMMENT '商户订单号',
+  transaction_id VARCHAR(64) NULL COMMENT '模拟微信支付单号',
+  biz_type VARCHAR(20) NOT NULL COMMENT 'ORDER/RECHARGE',
+  biz_ref VARCHAR(1000) NULL COMMENT '关联orders.orderid，逗号分隔',
+  userid BIGINT NOT NULL, tablename VARCHAR(50) NOT NULL, username VARCHAR(100) NULL, role VARCHAR(50) NULL,
+  description VARCHAR(255) NULL,
+  amount DECIMAL(12,2) NOT NULL, refunded_amount DECIMAL(12,2) NOT NULL DEFAULT 0,
+  status VARCHAR(20) NOT NULL COMMENT 'NOTPAY/SUCCESS/CLOSED/REFUND/PARTIAL_REFUND',
+  qr_token VARCHAR(64) NOT NULL, notify_count INT NOT NULL DEFAULT 0,
+  create_time DATETIME NOT NULL, expire_time DATETIME NOT NULL, pay_time DATETIME NULL
+) DEFAULT CHARSET=utf8mb4 COMMENT='模拟微信支付交易流水';
+CREATE TABLE IF NOT EXISTS wxpay_refund (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  out_refund_no VARCHAR(64) NOT NULL UNIQUE, refund_id VARCHAR(64) NOT NULL,
+  out_trade_no VARCHAR(64) NOT NULL, orderid VARCHAR(200) NULL,
+  userid BIGINT NOT NULL, amount DECIMAL(12,2) NOT NULL, reason VARCHAR(255) NULL,
+  status VARCHAR(20) NOT NULL, create_time DATETIME NOT NULL,
+  UNIQUE KEY uk_trade_order (out_trade_no, orderid)
+) DEFAULT CHARSET=utf8mb4 COMMENT='模拟微信支付退款记录';

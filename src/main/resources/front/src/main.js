@@ -10,6 +10,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import '@/assets/css/iconfont.css'
+import '@/assets/css/theme.scss'
 import config from './config/config'
 import validate from './common/validate'
 

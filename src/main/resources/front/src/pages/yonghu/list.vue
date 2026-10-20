@@ -261,7 +261,7 @@
 			height: auto;
 			.list-item {
 				margin: 0 5px 0 0;
-				/deep/.el-form-item__content {
+				::v-deep.el-form-item__content {
 					padding: 5px;
 					background: #FFF;
 					display: flex;
@@ -289,7 +289,7 @@
 					width: auto;
 					justify-content: center;
 				}
-				.el-input /deep/ .el-input__inner {
+				.el-input ::v-deep .el-input__inner {
 					border: none;
 					border-radius: 2px;
 					padding: 0 10px;
@@ -305,7 +305,7 @@
 				.el-select {
 					width: 100%;
 				}
-				.el-select /deep/ .el-input__inner {
+				.el-select ::v-deep .el-input__inner {
 					border: 0px solid #ddd;
 					border-radius: 2px;
 					padding: 0 10px;
@@ -321,7 +321,7 @@
 				.el-date-editor {
 					width: 100%;
 				}
-				.el-date-editor /deep/ .el-input__inner {
+				.el-date-editor ::v-deep .el-input__inner {
 					border: 0px solid #ddd;
 					border-radius: 2px;
 					padding: 0 30px;

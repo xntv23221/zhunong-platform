@@ -349,7 +349,7 @@
 			height: auto;
 			.list-item {
 				margin: 0 5px 0 0;
-				/deep/.el-form-item__content {
+				::v-deep.el-form-item__content {
 					padding: 5px;
 					background: #FFF;
 					display: flex;
@@ -377,7 +377,7 @@
 					width: auto;
 					justify-content: center;
 				}
-				.el-input /deep/ .el-input__inner {
+				.el-input ::v-deep .el-input__inner {
 					border: none;
 					border-radius: 2px;
 					padding: 0 10px;
@@ -393,7 +393,7 @@
 				.el-select {
 					width: 100%;
 				}
-				.el-select /deep/ .el-input__inner {
+				.el-select ::v-deep .el-input__inner {
 					border: 0px solid #ddd;
 					border-radius: 2px;
 					padding: 0 10px;
@@ -409,7 +409,7 @@
 				.el-date-editor {
 					width: 100%;
 				}
-				.el-date-editor /deep/ .el-input__inner {
+				.el-date-editor ::v-deep .el-input__inner {
 					border: 0px solid #ddd;
 					border-radius: 2px;
 					padding: 0 30px;
@@ -496,17 +496,17 @@
 				perspective: 1000px;
 				transition: 0.3s;
 			}
-			.el-table /deep/ .el-table__header-wrapper thead {
+			.el-table ::v-deep .el-table__header-wrapper thead {
 				color: #333;
 				font-weight: 500;
 				width: 100%;
 			}
 			
-			.el-table /deep/ .el-table__header-wrapper thead tr {
+			.el-table ::v-deep .el-table__header-wrapper thead tr {
 				background: #fff;
 			}
 			
-			.el-table /deep/ .el-table__header-wrapper thead tr th {
+			.el-table ::v-deep .el-table__header-wrapper thead tr th {
 				padding: 12px 0;
 				border-color: #eee;
 				border-width: 0 1px 1px 0;
@@ -514,7 +514,7 @@
 				text-align: left;
 			}
 			
-			.el-table /deep/ .el-table__header-wrapper thead tr th .cell {
+			.el-table ::v-deep .el-table__header-wrapper thead tr th .cell {
 				padding: 0 10px;
 				word-wrap: normal;
 				word-break: break-all;
@@ -529,15 +529,15 @@
 			}
 			
 			
-			.el-table /deep/ .el-table__body-wrapper tbody {
+			.el-table ::v-deep .el-table__body-wrapper tbody {
 				width: 100%;
 			}
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr {
 				background: #fff;
 			}
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr td {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 				padding: 12px 0;
 				color: #666;
 				background: #fff;
@@ -548,7 +548,7 @@
 			}
 			
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr:hover td {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr:hover td {
 				padding: 12px 0;
 				color: #333;
 				background: rgba(64, 158, 255, .1);
@@ -558,7 +558,7 @@
 				text-align: left;
 			}
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr td {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 				padding: 12px 0;
 				color: #666;
 				background: #fff;
@@ -568,7 +568,7 @@
 				text-align: left;
 			}
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr td .cell {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr td .cell {
 				padding: 0 10px;
 				overflow: hidden;
 				word-break: break-all;
@@ -576,7 +576,7 @@
 				line-height: 24px;
 				text-overflow: ellipsis;
 			}
-			.el-table /deep/ .table-view {
+			.el-table ::v-deep .table-view {
 				border: 0;
 				cursor: pointer;
 				border-radius: 4px;
@@ -595,10 +595,10 @@
 					height: 40px;
 				}
 			}
-			.el-table /deep/ .table-view:hover {
+			.el-table ::v-deep .table-view:hover {
 				opacity: 0.8;
 			}
-			.el-table /deep/ .table-btn5 {
+			.el-table ::v-deep .table-btn5 {
 				border: 0;
 				cursor: pointer;
 				border-radius: 4px;
@@ -617,7 +617,7 @@
 					height: 40px;
 				}
 			}
-			.el-table /deep/ .table-btn5:hover {
+			.el-table ::v-deep .table-btn5:hover {
 				opacity: 0.8;
 			}
 		}

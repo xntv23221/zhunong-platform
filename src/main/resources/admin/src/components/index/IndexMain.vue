@@ -1,8 +1,8 @@
 <template>
 	<div style="height: 100%;">
-		<el-main :style='"vertical" == "vertical" ? (2 == 1 ? {"minHeight":"100%","padding":"0","margin":"0 0 0 210px","position":"relative","display":"block"} : (2 == 2 ? (isCollapse ? {"minHeight":"100%","padding":"0px 0 0 180px","margin":"0","position":"relative","background":"#EDEFFE","display":"block"} : {"minHeight":"100%","padding":"0","margin":"0 0 0 140px","position":"relative","background":"#F8F8F8","display":"block"}) : "")) : {"minHeight":"100%","margin":"0","position":"relative"}'>
+		<el-main class="ag-main" :style='{"minHeight":"100%","padding":"0","margin":"0","position":"relative","display":"block"}'>
 			<!-- top -->
-			<index-header :style='{"padding":"0px 30px 0 0","boxShadow":" 0px 3px 10px 1px rgba(0,0,0,0.05)","margin":"0 30px 0 0","alignItems":"center","display":"flex","justifyContent":"flex-end","borderRadius":"0","flexWrap":"wrap","left":"0","background":"linear-gradient( 180deg, #EFFFEF 0%, #F8F8F8 100%)","width":"100%","fontSize":"16px","position":"fixed","zIndex":"222","height":"85px"}'></index-header>
+			<index-header class="ag-topbar"></index-header>
 			
 			<!-- menu -->
 			<template v-if="'vertical' == 'vertical'">
@@ -10,7 +10,7 @@
 				<index-aside :style='{"boxShadow":"1px 0 6px  rgba(64, 158, 255, .3)","overflow":"hidden","top":"0","left":"0","background":"#304156","bottom":"0","width":"210px","fontSize":"0px","position":"fixed","height":"100%","zIndex":"1001"}'></index-aside>
 			  </template>
 			  <template v-if="2 == 2">
-				<index-aside :is-collapse="isCollapse" @oncollapsechange="collapseChange" :style='isCollapse ? {"overflow":"hidden","top":"85px","left":"0","background":"#FBFBFB","bottom":"0","width":"180px","position":"fixed","transition":"all 0s","height":"100%","zIndex":"1001"} : {"boxShadow":"0px 0 6px  #ddd","padding":"0","overflow":"hidden","top":"110px","left":"0","background":"#F8F8F8","bottom":"0","width":"250px","position":"fixed","transition":"width 0.3s","height":"100%","zIndex":"1001"}'></index-aside>
+				<index-aside class="ag-aside" :is-collapse="isCollapse" @oncollapsechange="collapseChange"></index-aside>
 			  </template>
 			</template>
 			<template v-if="'vertical' == 'horizontal'">
@@ -23,7 +23,7 @@
 			</template>
 			
 			<!-- breadcrumb -->
-			<bread-crumbs :title="title" :style='{"width":"100%","padding":"124px 10px 10px 10px","boxShadow":"0 0px 0px #055bab","margin":"0","borderRadius":"0px","background":"#EFFFEF"}' class="bread-crumbs"></bread-crumbs>
+			<bread-crumbs :title="title" class="bread-crumbs ag-crumbs"></bread-crumbs>
 			
 			<!-- TagsView -->
 			<tags-view />

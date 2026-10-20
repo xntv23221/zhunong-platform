@@ -180,7 +180,10 @@ export default {
 		
 		for(let i=0;i<this.menuList.length;i++) {
 			if(this.menuList[i].roleName == this.role) {
-				this.menuList = this.menuList[i];
+				this.menuList = JSON.parse(JSON.stringify(this.menuList[i]));
+				if (this.role == '管理员' && this.menuList.backMenu && !this.menuList.backMenu.some(m => m.menu == '模拟支付')) {
+					this.menuList.backMenu.push({menu: '模拟支付', child: [{menu: '支付流水与退款', tableName: 'wxpay', buttons: ['查看']}]})
+				}
 				break;
 			}
 		}
@@ -247,13 +250,13 @@ export default {
 		.el-scrollbar {
 			height: 100%;
 	
-			& /deep/ .scrollbar-wrapper {
+			& ::v-deep .scrollbar-wrapper {
 				overflow-x: hidden;
 			}
 		
 			// 竖向
 			.el-menu-vertical-demo {
-				.el-submenu:first-of-type /deep/ .el-submenu__title .el-submenu__icon-arrow {
+				.el-submenu:first-of-type ::v-deep .el-submenu__title .el-submenu__icon-arrow {
 					display: none;
 				}
 			}
@@ -272,7 +275,7 @@ export default {
 				background: blue;
 			}
 			
-			.el-menu-vertical-demo .el-submenu /deep/ .el-submenu__title {
+			.el-menu-vertical-demo .el-submenu ::v-deep .el-submenu__title {
 				cursor: pointer;
 				padding: 0 20px;
 				color: #333;
@@ -281,12 +284,12 @@ export default {
 				position: relative;
 			}
 			
-			.el-menu-vertical-demo .el-submenu /deep/ .el-submenu__title:hover {
+			.el-menu-vertical-demo .el-submenu ::v-deep .el-submenu__title:hover {
 				color: #fff;
 				background: blue;
 			}
 			
-			.el-menu-vertical-demo .el-submenu /deep/ .el-submenu__title .el-submenu__icon-arrow {
+			.el-menu-vertical-demo .el-submenu ::v-deep .el-submenu__title .el-submenu__icon-arrow {
 				margin: -7px 0 0 0;
 				top: 50%;
 				color: inherit;
@@ -302,12 +305,12 @@ export default {
 				list-style: none;
 			}
 			
-			// .el-menu-vertical-demo .el-submenu /deep/ .el-menu {
+			// .el-menu-vertical-demo .el-submenu ::v-deep .el-menu {
 // 					// 		border: none;
 // 					// 		display: none;
 // 					// }
 			
-			.el-menu-vertical-demo .el-submenu /deep/ .el-menu .el-menu-item {
+			.el-menu-vertical-demo .el-submenu ::v-deep .el-menu .el-menu-item {
 				padding: 0 40px;
 				color: #666;
 				background: #fff;
@@ -315,7 +318,7 @@ export default {
 				height: 50px;
 			}
 			
-			.el-menu-vertical-demo .el-submenu /deep/ .el-menu .el-menu-item:hover {
+			.el-menu-vertical-demo .el-submenu ::v-deep .el-menu .el-menu-item:hover {
 				padding: 0 40px;
 				color: #fff;
 				background: red;
@@ -323,7 +326,7 @@ export default {
 				height: 50px;
 			}
 			
-			.el-menu-vertical-demo .el-submenu /deep/ .el-menu .el-menu-item.is-active {
+			.el-menu-vertical-demo .el-submenu ::v-deep .el-menu .el-menu-item.is-active {
 				padding: 0 40px;
 				color: #fff;
 				background: blue;
@@ -361,7 +364,7 @@ export default {
 	}
 	
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other /deep/ .el-submenu__title {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other ::v-deep .el-submenu__title {
 		cursor: pointer !important;
 		padding: 0 0 0 30px !important;
 		margin: 0 30px 0 0  !important;
@@ -378,18 +381,18 @@ export default {
 		background: url(http://codegen.caihongy.cn/20250906/f2989fe948b9480a8951a8aa4608b0bb.png) no-repeat center center / 100% 100% !important;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other /deep/ .el-submenu__title:hover {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other ::v-deep .el-submenu__title:hover {
 		border-radius: 0 !important;
 		color: #10C17C !important;
 		background: url(http://codegen.caihongy.cn/20250906/f2989fe948b9480a8951a8aa4608b0bb.png) no-repeat center center / 100% 100% !important;
 	}
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other.is-active /deep/ .el-submenu__title {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other.is-active ::v-deep .el-submenu__title {
 		border-radius: 0 !important;
 		color: #10C17C !important;
 		background: url(http://codegen.caihongy.cn/20250906/f2989fe948b9480a8951a8aa4608b0bb.png) no-repeat center center / 100% 100% !important;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other /deep/ .el-submenu__title .iconfont {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other ::v-deep .el-submenu__title .iconfont {
 		border-radius: 100%;
 		margin: 0 3px;
 		color: inherit;
@@ -403,7 +406,7 @@ export default {
 		height: 34px;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other /deep/ .el-submenu__title .el-submenu__icon-arrow {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.other ::v-deep .el-submenu__title .el-submenu__icon-arrow {
 		margin: -7px 0 0 0;
 		top: 50%;
 		color: inherit;
@@ -413,7 +416,7 @@ export default {
 		right: 20px;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 /deep/ .el-submenu.other .el-menu {
+	.scrollbar-wrapper-open .el-menu-vertical-2 ::v-deep .el-submenu.other .el-menu {
 		border: none;
 		border-radius: 0px;
 		padding: 0 0 0 30px;
@@ -474,7 +477,7 @@ export default {
 		transition: all 0s;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.other /deep/ .el-submenu__title {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.other ::v-deep .el-submenu__title {
 		cursor: pointer !important;
 		padding: 35px 0px !important;
 		margin: 0 0 0 20px !important;
@@ -487,13 +490,13 @@ export default {
 		height: auto !important;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.other /deep/ .el-submenu__title:hover {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.other ::v-deep .el-submenu__title:hover {
 		color: #29C41F !important;
 		background: url(http://codegen.caihongy.cn/20251001/ce051771e76e46d1830f4d8911d44159.png) no-repeat center center / 100% 100% !important;
 		transition: all 0s !important;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.other /deep/ .el-submenu__title .iconfont {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.other ::v-deep .el-submenu__title .iconfont {
 		margin: 0 auto;
 		color: inherit;
 		background: none;
@@ -506,7 +509,7 @@ export default {
 		height: 24px;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.other /deep/ .el-submenu__title .el-submenu__icon-arrow {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.other ::v-deep .el-submenu__title .el-submenu__icon-arrow {
 		margin: -7px 0 0 0;
 		top: 50%;
 		color: inherit;
@@ -570,7 +573,7 @@ export default {
 		background: url(http://codegen.caihongy.cn/20250906/f2989fe948b9480a8951a8aa4608b0bb.png) no-repeat center center / 100% 100%;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.home /deep/ .el-submenu__title {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.home ::v-deep .el-submenu__title {
 		cursor: pointer !important;
 		padding: 0 0 0 30px !important;
 		margin: 0 30px 0 0  !important;
@@ -582,13 +585,13 @@ export default {
 		height: 66px !important;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.home /deep/ .el-submenu__title:hover {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.home ::v-deep .el-submenu__title:hover {
 		border-radius: 0 !important;
 		color: #10C17C !important;
 		background: url(http://codegen.caihongy.cn/20250906/f2989fe948b9480a8951a8aa4608b0bb.png) no-repeat center center / 100% 100% !important;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.home /deep/ .el-submenu__title .iconfont {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.home ::v-deep .el-submenu__title .iconfont {
 		border-radius: 100%;
 		margin: 0 3px;
 		color: inherit;
@@ -602,7 +605,7 @@ export default {
 		height: 34px;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.home /deep/ .el-submenu__title .el-submenu__icon-arrow {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.home ::v-deep .el-submenu__title .el-submenu__icon-arrow {
 		margin: -7px 0 0 0;
 		top: 50%;
 		color: inherit;
@@ -673,7 +676,7 @@ export default {
 		transition: all 0s;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.home /deep/ .el-submenu__title {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.home ::v-deep .el-submenu__title {
 		cursor: pointer;
 		padding: 35px 0px;
 		margin: 0 0 0 20px;
@@ -686,13 +689,13 @@ export default {
 		height: auto;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.home /deep/ .el-submenu__title:hover {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.home ::v-deep .el-submenu__title:hover {
 		color: #29C41F;
 		background: url(http://codegen.caihongy.cn/20251001/ce051771e76e46d1830f4d8911d44159.png) no-repeat center center / 100% 100%;
 		transition: all 0s;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.home /deep/ .el-submenu__title .iconfont {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.home ::v-deep .el-submenu__title .iconfont {
 		margin: 0 auto;
 		color: inherit;
 		background: none;
@@ -705,7 +708,7 @@ export default {
 		height: 24px;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.home /deep/ .el-submenu__title .el-submenu__icon-arrow {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.home ::v-deep .el-submenu__title .el-submenu__icon-arrow {
 		margin: -7px 0 0 0;
 		top: 50%;
 		color: inherit;
@@ -769,7 +772,7 @@ export default {
 		background: url(http://codegen.caihongy.cn/20250906/f2989fe948b9480a8951a8aa4608b0bb.png) no-repeat center center / 100% 100%;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.user /deep/ .el-submenu__title {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.user ::v-deep .el-submenu__title {
 		cursor: pointer !important;
 		padding: 0 0 0 30px !important;
 		margin: 0 30px 0 0  !important;
@@ -781,13 +784,13 @@ export default {
 		height: 66px !important;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.user /deep/ .el-submenu__title:hover {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.user ::v-deep .el-submenu__title:hover {
 		border-radius: 0 !important;
 		color: #10C17C !important;
 		background: url(http://codegen.caihongy.cn/20250906/f2989fe948b9480a8951a8aa4608b0bb.png) no-repeat center center / 100% 100% !important;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.user /deep/ .el-submenu__title .iconfont {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.user ::v-deep .el-submenu__title .iconfont {
 		border-radius: 100%;
 		margin: 0 3px;
 		color: inherit;
@@ -801,7 +804,7 @@ export default {
 		height: 34px;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.user /deep/ .el-submenu__title .el-submenu__icon-arrow {
+	.scrollbar-wrapper-open .el-menu-vertical-2 .el-submenu.user ::v-deep .el-submenu__title .el-submenu__icon-arrow {
 		margin: -7px 0 0 0;
 		top: 50%;
 		color: inherit;
@@ -811,7 +814,7 @@ export default {
 		right: 20px;
 	}
 	
-	.scrollbar-wrapper-open .el-menu-vertical-2 /deep/ .el-submenu.user .el-menu {
+	.scrollbar-wrapper-open .el-menu-vertical-2 ::v-deep .el-submenu.user .el-menu {
 		border: none;
 		border-radius: 0px;
 		padding: 0 0 0 30px;
@@ -872,7 +875,7 @@ export default {
 		transition: all 0s;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.user /deep/ .el-submenu__title {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.user ::v-deep .el-submenu__title {
 		cursor: pointer !important;
 		padding: 35px 0px !important;
 		margin: 0 0 0 20px !important;
@@ -885,13 +888,13 @@ export default {
 		height: auto !important;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.user /deep/ .el-submenu__title:hover {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.user ::v-deep .el-submenu__title:hover {
 		color: #29C41F !important;
 		background: url(http://codegen.caihongy.cn/20251001/ce051771e76e46d1830f4d8911d44159.png) no-repeat center center / 100% 100% !important;
 		transition: all 0s !important;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.user /deep/ .el-submenu__title .iconfont {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.user ::v-deep .el-submenu__title .iconfont {
 		margin: 0 auto;
 		color: inherit;
 		background: none;
@@ -904,7 +907,7 @@ export default {
 		height: 24px;
 	}
 	
-	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.user /deep/ .el-submenu__title .el-submenu__icon-arrow {
+	.scrollbar-wrapper-close .el-menu-vertical-2 .el-submenu.user ::v-deep .el-submenu__title .el-submenu__icon-arrow {
 		margin: -7px 0 0 0;
 		top: 50%;
 		color: inherit;

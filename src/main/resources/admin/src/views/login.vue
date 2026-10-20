@@ -1,44 +1,30 @@
 <template>
-			<div>
-				<div class="login-container" :style="{'backgroundImage': indexBgUrl?`url(${$base.url + indexBgUrl})`:''}">
-					<el-form class="login_form animate__animated animate__">
-						<div class="login_form2">
-							<div class="title-container">
-								<img class="title-logo" :src="logoUrl" alt="高校助农互联网商城logo">
-								<span>高校助农互联网商城登录</span>
-							</div>
-					<div v-if="loginType==1" class="list-item">
-						<input placeholder="请输入账号：" name="username" type="text" v-model="rulesForm.username">
-					</div>
-					<div v-if="loginType==1" class="list-item">
-						<div class="password-box">
-							<input placeholder="请输入密码：" name="password" :type="showPassword?'text':'password'" v-model="rulesForm.password">
-							<span class="icon iconfont" :class="showPassword?'icon-liulan13':'icon-liulan17'" @click="showPassword=!showPassword"></span>
-						</div>
-					</div>
-
-					<div class="list-item select" v-if="roles.length>1&&loginType<=2">
-						<el-select v-model="rulesForm.role" placeholder="请选择角色：">
-							<el-option v-if="loginType==1||(loginType==2&&item.role!='users')" v-for="item in roles" :key="item.roleName" :label="item.roleName" :value="item.roleName" />
-						</el-select>
-					</div>
-
-		
-					<div class="login-btn">
-						<div class="login-btn1">
-							<el-button v-if="loginType==1||loginType==3||loginType==4" type="primary" @click="login()" class="loginInBt">登录</el-button>
-						</div>
-						<div class="login-btn2">
-							<el-button type="primary" @click="register('nongmin')" class="register">
-								农民注册							</el-button>
-							<el-button type="primary" @click="register('gaoxiao')" class="register">
-								高校注册							</el-button>
-						</div>
-						<div class="login-btn3">
-						</div>
+	<div class="lg-wrap">
+		<div class="lg-card">
+			<div class="lg-brand">
+				<img class="lg-logo" :src="logoUrl" alt="logo">
+				<div>
+					<h1>高校助农互联网商城</h1>
+					<p>管理后台 · 农户 / 高校 / 管理员统一入口</p>
+					<ul><li>农产品与订单管理</li><li>原料采购与配送协同</li><li>模拟微信支付流水与退款</li></ul>
+				</div>
+			</div>
+			<div class="lg-form">
+				<h2>账号登录</h2>
+				<p class="sub">请选择角色并输入账号密码</p>
+				<div v-if="loginType==1" class="lg-item"><label>账号</label>
+					<input placeholder="请输入账号" name="username" type="text" v-model="rulesForm.username"></div>
+				<div v-if="loginType==1" class="lg-item"><label>密码</label>
+					<div class="pw"><input placeholder="请输入密码" name="password" :type="showPassword?'text':'password'" v-model="rulesForm.password" @keyup.enter="login()">
+					<i :class="showPassword?'el-icon-view':'el-icon-lock'" @click="showPassword=!showPassword"></i></div></div>
+				<div class="lg-item" v-if="roles.length>1&&loginType<=2"><label>角色</label>
+					<div class="roles">
+						<span v-for="item in roles" v-if="loginType==1||(loginType==2&&item.role!='users')" :key="item.roleName" :class="{on: rulesForm.role==item.roleName}" @click="rulesForm.role=item.roleName">{{item.roleName}}</span>
 					</div>
 				</div>
-			</el-form>
+				<el-button v-if="loginType==1||loginType==3||loginType==4" type="primary" @click="login()" class="lg-btn">登 录</el-button>
+				<div class="lg-reg">还没有账号？<a @click="register('nongmin')">农民注册</a><a @click="register('gaoxiao')">高校注册</a></div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -171,251 +157,19 @@
 </script>
 
 <style lang="scss" scoped>
-.login-container {
-	min-height: 100vh;
-	position: relative;
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
-	background: url(http://codegen.caihongy.cn/20250926/183867aad2b6479eb1d73d908e898f72.png)  no-repeat  center   center /  100% 100%;
-	background: url(http://codegen.caihongy.cn/20250926/183867aad2b6479eb1d73d908e898f72.png)  no-repeat  center   center /  100% 100%;
-	display: flex;
-	width: 100%;
-	min-height: 100vh;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-
-	.login_form {
-		border-radius: 0;
-		z-index: 1;
-		flex-direction: column;
-		display: flex;
-		width: 100%;
-		align-items: flex-end;
-		flex-wrap: wrap;
-		height: auto;
-		.login_form2 {
-			border-radius: 24px;
-			padding: 57px ;
-			margin: 140px 98px 0 0;
-			background: #FFFFFF;
-			display: flex;
-			width: 673px;
-			flex-wrap: wrap;
-		}
-		.title-container {
-			margin: 10px 0 20px 0;
-			text-shadow: none;
-			color: #29C41F;
-			top: 5%;
-			left: 2%;
-			background: none;
-			font-weight: 600;
-			width: 100%;
-			font-size: 34px;
-			position: absolute;
-			display: flex;
-			align-items: center;
-			gap: 14px;
-			.title-logo {
-				width: 54px;
-				height: 54px;
-				object-fit: contain;
-				border-radius: 50%;
-				background: rgba(255,255,255,0.92);
-				box-shadow: 0 10px 20px rgba(41, 196, 31, 0.14);
-				padding: 4px;
-			}
-		}
-		.list-item {
-			border-radius: 5px;
-			padding: 0;
-			margin: 10px 0;
-			background: #fff;
-			display: flex;
-			width: 100%;
-			align-items: center;
-			order: 1;
-			input {
-				border: 1px solid #DADFE6;
-				border-radius: 4px;
-				padding: 0 10px;
-				box-shadow: inset 0px 3px 6px 1px rgba(0,0,0,0.16);
-				color: #333;
-				background: none;
-				flex: 1;
-				width: 100%;
-				font-size: 16px;
-				height: 45px;
-			}
-			input:focus {
-				border: 1px solid #DADFE6;
-				border-radius: 4px;
-				padding: 0 10px;
-				box-shadow: inset 0px 3px 6px 1px rgba(0,0,0,0.16);
-				color: #333;
-				background: none;
-				flex: 1;
-				width: 100%;
-				font-size: 16px;
-				height: 45px;
-			}
-			.password-box {
-				flex: 1;
-				display: flex;
-				width: 100%;
-				position: relative;
-				align-items: center;
-				input {
-					border: 1px solid #DADFE6;
-					border-radius: 4px;
-					padding: 0 10px;
-					box-shadow: inset 0px 3px 6px 1px rgba(0,0,0,0.16);
-					color: #333;
-					background: none;
-					flex: 1;
-					width: 100%;
-					font-size: 16px;
-					height: 45px;
-				}
-				input:focus {
-					border: 1px solid #DADFE6;
-					border-radius: 4px;
-					padding: 0 10px;
-					box-shadow: inset 0px 3px 6px 1px rgba(0,0,0,0.16);
-					color: #333;
-					background: none;
-					flex: 1;
-					width: 100%;
-					font-size: 16px;
-					height: 45px;
-				}
-				.iconfont {
-					cursor: pointer;
-					z-index: 1;
-					color: #000;
-					top: 0;
-					font-size: 16px;
-					line-height: 44px;
-					position: absolute;
-					right: 5px;
-				}
-			}
-			input::placeholder {
-				color: #C3C7CC;
-				font-size: 16px;
-			}
-			/deep/ .el-select {
-				flex: 1;
-				width: 100%;
-			}
-			/deep/ .el-select .el-input__inner {
-				border: 1px solid #DADFE6;
-				border-radius: 4px;
-				padding: 0 10px;
-				box-shadow: inset 0px 3px 6px 1px rgba(0,0,0,0.16);
-				color: #333;
-				background: none;
-				flex: 1;
-				width: 100%;
-				font-size: 16px;
-				height: 45px;
-			}
-			/deep/ .el-select .is-focus .el-input__inner {
-				border: 1px solid #DADFE6;
-				border-radius: 4px;
-				padding: 0 10px;
-				box-shadow: inset 0px 3px 6px 1px rgba(0,0,0,0.16);
-				color: #333;
-				background: none;
-				flex: 1;
-				width: 100%;
-				font-size: 16px;
-				height: 45px;
-			}
-			/deep/ .el-select .el-input__inner::placeholder{
-				color: #C3C7CC;
-				font-size: 16px;
-			}
-		}
-		.login-btn {
-			margin: 10px auto;
-			display: flex;
-			width: 100%;
-			justify-content: center;
-			align-items: center;
-			flex-wrap: wrap;
-			order: 1;
-			.login-btn1 {
-				width: 100%;
-				order: 1;
-			}
-			.login-btn2 {
-				z-index: 9;
-				background: none;
-				display: flex;
-				width: auto;
-				border-color: #707070;
-				border-width: 0;
-				align-items: center;
-				border-style: solid;
-			}
-			.login-btn3 {
-				z-index: 1;
-				flex: 1;
-				width: auto;
-				text-align: right;
-			}
-			.loginInBt {
-				border: 0;
-				cursor: pointer;
-				border-radius: 24px;
-				padding: 0 24px;
-				margin: 30px 0 10px;
-				outline: none;
-				color: #fff;
-				background: #5ED357;
-				font-weight: bold;
-				width: 100%;
-				font-size: 20px;
-				height: 50px;
-			}
-			.loginInBt:hover {
-				opacity: 0.8;
-			}
-			.register {
-				border: 0px solid #333;
-				cursor: pointer;
-				border-radius: 0px;
-				padding: 10px;
-				outline: none;
-				color: #5ED357;
-				background: none;
-				text-decoration: underline;
-				width: auto;
-				font-size: 16px;
-			}
-			.register:hover {
-				opacity: 0.8;
-			}
-			.forget {
-				border: 0px solid #333;
-				cursor: pointer;
-				border-radius: 0px;
-				padding: 10px;
-				outline: none;
-				color: #0D1818;
-				background: none;
-				font-weight: bold;
-				width: auto;
-				font-size: 16px;
-			}
-			.forget:hover {
-				opacity: 0.8;
-			}
-		}
-	}
-}
-
+.lg-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 30px; background: radial-gradient(1000px 500px at 0% 0%, #bbf7d0, transparent 60%), radial-gradient(900px 500px at 100% 100%, #a7f3d0, transparent 60%), #ecfdf5; }
+.lg-card { width: 980px; max-width: 100%; display: grid; grid-template-columns: 1fr 1fr; background: #fff; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 80px rgba(6,78,59,.18); }
+.lg-brand { padding: 54px 46px; color: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; background: linear-gradient(160deg, #065f46 0%, #15803d 55%, #22c55e 100%);
+  .lg-logo { width: 54px; height: 54px; border-radius: 14px; background: #fff; padding: 4px; }
+  h1 { font-size: 30px; margin: 0 0 10px; letter-spacing: 2px; } p { opacity: .85; margin: 0 0 24px; }
+  ul { list-style: none; padding: 0; margin: 0; li { padding: 10px 0 10px 28px; position: relative; opacity: .95; &::before { content: '✓'; position: absolute; left: 0; width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,.25); font-size: 12px; text-align: center; line-height: 18px; top: 12px; } } } }
+.lg-form { padding: 54px 48px; display: flex; flex-direction: column; justify-content: center;
+  h2 { margin: 0; font-size: 26px; color: #0f172a; } .sub { color: #64748b; margin: 8px 0 18px; font-size: 14px; } }
+.lg-item { margin-top: 16px; label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 8px; }
+  input { width: 100%; height: 46px; border: 1px solid #dfe7e2; background: #f8faf9; border-radius: 12px; padding: 0 14px; font-size: 14px; outline: none; box-sizing: border-box; transition: .2s; &:focus { border-color: #16a34a; background: #fff; box-shadow: 0 0 0 4px rgba(22,163,74,.12); } }
+  .pw { position: relative; i { position: absolute; right: 14px; top: 15px; color: #94a3b8; cursor: pointer; } } }
+.roles { display: flex; flex-wrap: wrap; gap: 8px; span { padding: 8px 16px; border: 1.5px solid #e2e8f0; border-radius: 10px; cursor: pointer; font-size: 14px; color: #334155; transition: .15s; &.on { border-color: #16a34a; color: #16a34a; background: #f0fdf4; font-weight: 600; } } }
+.lg-btn { margin-top: 28px; width: 100%; height: 48px; border: 0 !important; border-radius: 12px !important; font-size: 16px; font-weight: 700; background: linear-gradient(90deg, #16a34a, #22c55e) !important; box-shadow: 0 10px 24px rgba(22,163,74,.3); }
+.lg-reg { margin-top: 16px; text-align: center; color: #64748b; font-size: 14px; a { color: #16a34a; margin: 0 6px; cursor: pointer; font-weight: 600; } }
+@media (max-width: 820px) { .lg-card { grid-template-columns: 1fr; } .lg-brand { min-height: 0; } }
 </style>

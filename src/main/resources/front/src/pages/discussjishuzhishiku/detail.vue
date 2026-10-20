@@ -536,10 +536,10 @@
 			background: none;
 			width: 100%;
 			order: 5;
-			& /deep/ .el-tabs__header .el-tabs__nav-wrap {
+			& ::v-deep .el-tabs__header .el-tabs__nav-wrap {
 				margin-bottom: 0;
 			}
-			/deep/ .el-tabs__header {
+			::v-deep .el-tabs__header {
 				padding: 8px 20px;
 				background: none;
 				display: flex;
@@ -552,7 +552,7 @@
 				text-align: center;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item {
+			::v-deep .el-tabs__header .el-tabs__item {
 				border: 0;
 				padding: 0 20px;
 				margin: 0 10px 0 0;
@@ -571,13 +571,13 @@
 				height: 40px;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item:hover {
+			::v-deep .el-tabs__header .el-tabs__item:hover {
 				color: #fff;
 				background: url(http://codegen.caihongy.cn/20251216/9edd1be1060643f7be9ac151744c9d60.png) no-repeat center /100% 100%;
 				border-color: #fff;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item.is-active {
+			::v-deep .el-tabs__header .el-tabs__item.is-active {
 				border-radius: 0px;
 				padding: 0 20px;
 				margin: 0 10px 0 0;
@@ -589,7 +589,7 @@
 				border-style: solid;
 			}
 			
-			/deep/ .el-tabs__content {
+			::v-deep .el-tabs__content {
 				padding: 15px 5px;
 				color: #333;
 				background: none;

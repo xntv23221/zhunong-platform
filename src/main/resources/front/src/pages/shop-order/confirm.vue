@@ -78,6 +78,19 @@
 		<div style="width: 100%;padding: 12px;box-sizing: border-box;display: flex;align-items: center;">
 			<span style="width: 80px; font-size: 14px;">备注：</span><el-input type="textarea" v-model="remark" placeholder="备注" style="width: calc(100% - 80px);"></el-input>
 		</div>
+		<div class="pay-method" v-if="seat!=1 && tableData.length > 0 && type != 2">
+			<div class="pm-title">支付方式</div>
+			<div class="pm-list">
+				<div class="pm-item" :class="{on: payMethod=='wxpay'}" @click="payMethod='wxpay'">
+					<img src="@/assets/weixin.png"><div><b>微信支付</b> <span class="mock-badge">模拟支付</span><p>扫码支付，不产生真实扣款</p></div>
+					<i class="el-icon-success" v-if="payMethod=='wxpay'"></i>
+				</div>
+				<div class="pm-item" :class="{on: payMethod=='balance'}" @click="payMethod='balance'">
+					<i class="el-icon-wallet pm-wallet"></i><div><b>余额支付</b><p>使用账户余额支付</p></div>
+					<i class="el-icon-success" v-if="payMethod=='balance'"></i>
+				</div>
+			</div>
+		</div>
 		<div class="buy" v-if="seat!=1 && tableData.length > 0">
 			<template v-if="type == 2">
 				<span style="color: red;margin-right: 10px;font-weight: 700;">总价：{{totalPrice}} 积分</span>
@@ -144,6 +157,8 @@ export default {
 			buynumber: 0,
 			remark:'',
 			orderIdList: {},
+			payMethod: 'wxpay',
+			wxOrderIds: [],
 			payList: this.$config.payList,
 			payPasswordVisible: false,
 			payPassword: ''
@@ -210,6 +225,16 @@ export default {
 		addAddress(){
 			this.$router.push('/index/shop-address/addOrUpdate');
 		},
+		toWxCashier() {
+			this.$http.post('wxpay/create', {bizType: 'ORDER', orderids: this.wxOrderIds}).then(res => {
+				if (res.data && res.data.code === 0) {
+					this.$router.push({path: '/index/wxpay/cashier', query: {no: res.data.data.out_trade_no}})
+				} else {
+					this.$message.error(res.data.msg || '下单失败')
+					this.$router.push('/index/shop-order/order')
+				}
+			})
+		},
 		beforePay(){
 			if (this.radio == -1 ) {
 				this.$message({
@@ -218,6 +243,11 @@ export default {
 					duration: 1500
 				});
 				return;
+			}
+			if (this.payMethod == 'wxpay' && this.type != 2 && this.seat != 1) {
+				this.wxOrderIds = []
+				this.payClick()
+				return
 			}
 			if(localStorage.getItem('hasPayPassword')&&localStorage.getItem('hasPayPassword')==1) {
 				this.payPassword = ''
@@ -322,6 +352,12 @@ export default {
 							if (item.id) {
 								this.$http.post('cart/delete', [item.id]).then(res => {});
 							}
+							// 模拟微信支付：订单保持“未支付”，全部生成后统一下单跳转收银台
+							if (this.payMethod == 'wxpay' && this.type != 2) {
+								this.wxOrderIds.push(order.orderid)
+								if (this.wxOrderIds.length == this.tableData.length) this.toWxCashier()
+								return
+							}
 							// 减少余额，更新订单状态
 							// 判断余额是否充足
 							if (Number(this.user.money) < Number(item.total)) {
@@ -417,4 +453,12 @@ export default {
 	text-align: right;
 	padding-right: 82px;
   }
+.pay-method { background: #fff; border: 1px solid #e5ece8; border-radius: 14px; padding: 16px 20px; margin: 16px 0;
+  .pm-title { font-weight: 700; margin-bottom: 12px; }
+  .pm-list { display: flex; gap: 14px; flex-wrap: wrap; }
+  .pm-item { position: relative; display: flex; align-items: center; gap: 12px; width: 300px; padding: 14px 16px; border: 1.5px solid #e5ece8; border-radius: 12px; cursor: pointer; transition: .2s;
+    img { width: 36px; height: 36px; } p { margin: 4px 0 0; font-size: 12px; color: #64748b; }
+    .pm-wallet { font-size: 32px; color: #f59e0b; }
+    .el-icon-success { position: absolute; right: 12px; top: 12px; color: #07c160; font-size: 18px; }
+    &.on { border-color: #07c160; background: #f0fdf4; } } }
 </style>

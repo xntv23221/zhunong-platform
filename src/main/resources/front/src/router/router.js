@@ -12,6 +12,8 @@ import Order from '../pages/shop-order/list'
 import OrderConfirm from '../pages/shop-order/confirm'
 import Cart from '../pages/shop-cart/list'
 import payList from '../pages/pay'
+import WxCashier from '../pages/wxpay/cashier'
+import WxScan from '../pages/wxpay/scan'
 
 import yonghuList from '../pages/yonghu/list'
 import yonghuDetail from '../pages/yonghu/detail'
@@ -95,6 +97,10 @@ export default new VueRouter({
 				{
 					path: 'pay',
 					component: payList,
+				},
+				{
+					path: 'wxpay/cashier',
+					component: WxCashier,
 				},
 				{
 					path: 'storeup',
@@ -341,6 +347,10 @@ export default new VueRouter({
 		{
 			path: '/login',
 			component: Login
+		},
+		{
+			path: '/wxpay/scan',
+			component: WxScan
 		},
 		{
 			path: '/register',

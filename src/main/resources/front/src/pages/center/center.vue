@@ -134,58 +134,15 @@
 				</div>
 			</div>
 		</div>
-		<el-dialog title="用户充值" :visible.sync="dialogFormVisibleMoney" width="726px" center>
-			<el-form :model="chongzhiForm">
-				<el-form-item label="充值金额" label-width="120px">
-					<el-input type="number" v-model="chongzhiForm.money" autocomplete="off" placeholder="充值金额"></el-input>
-				</el-form-item>
-				<el-form-item label-width="120px">
-					<el-radio-group v-model="chongzhiForm.radio">
-						<el-radio style="margin-bottom: 30px" label="微信支付">
-							<el-image
-								style="width: 60px; height: 60px;vertical-align: middle;"
-								:src="require('@/assets/weixin.png')"
-								fit="fill"></el-image>
-							<span style="display: inline-block;margin-left: 10px">微信支付</span>
-						</el-radio>
-						<el-radio label="支付宝支付">
-							<el-image
-								style="width: 60px; height: 60px;vertical-align: middle;"
-								:src="require('@/assets/zhifubao.png')"
-								fit="fill"></el-image>
-							<span style="display: inline-block;margin-left: 10px">支付宝支付</span>
-						</el-radio>
-						<el-radio label="中国建设银行支付">
-							<el-image
-								style="width: 120px; height: 60px;vertical-align: middle;"
-								:src="require('@/assets/jianshe.png')"
-								fit="fill"></el-image>
-						</el-radio>
-						<el-radio label="中国农业银行支付">
-							<el-image
-								style="width: 126px; height: 60px;vertical-align: middle;"
-								:src="require('@/assets/nongye.png')"
-								fit="fill"></el-image>
-						</el-radio>
-						<el-radio label="中国银行支付">
-							<el-image
-								style="width: 140px; height: 60px;vertical-align: middle;"
-								:src="require('@/assets/zhongguo.png')"
-								fit="fill"></el-image>
-						</el-radio>
-						<el-radio label="交通银行支付">
-							<el-image
-								style="width: 120px; height: 60px;vertical-align: middle;"
-								:src="require('@/assets/jiaotong.png')"
-								fit="fill"></el-image>
-						</el-radio>
-					</el-radio-group>
-				</el-form-item>
-			</el-form>
+		<el-dialog title="账户充值" :visible.sync="dialogFormVisibleMoney" width="520px" center>
+			<div class="rc-quick">
+				<span v-for="v in [50,100,200,500]" :key="v" :class="{on: Number(chongzhiForm.money)==v}" @click="chongzhiForm.money=v">¥{{v}}</span>
+			</div>
+			<el-input type="number" v-model="chongzhiForm.money" placeholder="自定义充值金额（元）"><template slot="prepend">¥</template></el-input>
+			<div class="rc-method"><img src="@/assets/weixin.png"><div><b>微信支付</b> <span class="mock-badge">模拟支付</span><p>扫码确认后，余额自动到账并生成充值记录</p></div><i class="el-icon-success"></i></div>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="dialogFormVisibleMoney = false">取 消</el-button>
-				<el-button type="primary" @click="chongzhi">确认充值</el-button>
-				<el-button type="primary" @click="qrCodeClick(1)">二维码充值</el-button>
+				<el-button type="primary" @click="chongzhi">去支付</el-button>
 			</div>
 		</el-dialog>
 		<el-dialog title="支付" :visible.sync="qrCodeVisible" width="30%">
@@ -358,7 +315,18 @@
 			yonghutouxiangHandleAvatarSuccess(fileUrls) {
 				this.sessionForm.touxiang = fileUrls;
 			},
+			// 充值走模拟微信支付：下单 -> 收银台扫码 -> 回调加余额并写充值记录
 			chongzhi() {
+				const m = Number(this.chongzhiForm.money)
+				if (!m || m <= 0) { this.$message.error('请输入正确的充值金额'); return }
+				this.$http.post('wxpay/create', {bizType: 'RECHARGE', amount: m}).then(res => {
+					if (res.data && res.data.code === 0) {
+						this.dialogFormVisibleMoney = false
+						this.$router.push({path: '/index/wxpay/cashier', query: {no: res.data.data.out_trade_no}})
+					} else this.$message.error(res.data.msg)
+				})
+			},
+			chongzhiLegacy() {
 				if (this.chongzhiForm.money == '') {
 					this.$message({
 						message: '请输入充值金额',
@@ -922,7 +890,7 @@
 					padding: 0px;
 					margin: 0 0 24px;
 					background: none;
-					/deep/ .el-form-item__label {
+					::v-deep .el-form-item__label {
 						padding: 0 0px 0 10px;
 						color: #666;
 						white-space: nowrap;
@@ -938,7 +906,7 @@
 					.el-input {
 						width: 100%;
 					}
-					.el-input /deep/ .el-input__inner {
+					.el-input ::v-deep .el-input__inner {
 						border: none;
 						border-radius: 0px;
 						padding: 0 12px;
@@ -950,7 +918,7 @@
 						font-size: 16px;
 						height: 40px;
 					}
-					.el-input /deep/ .el-input__inner[readonly="readonly"] {
+					.el-input ::v-deep .el-input__inner[readonly="readonly"] {
 						border: 0px solid #ddd;
 						cursor: not-allowed;
 						border-radius: 4px;
@@ -966,7 +934,7 @@
 					.el-select {
 						width: 100%;
 					}
-					.el-select /deep/ .el-input__inner {
+					.el-select ::v-deep .el-input__inner {
 						border: 0px solid #eee;
 						border-radius: 0px;
 						padding: 0 10px;
@@ -978,7 +946,7 @@
 						font-size: 16px;
 						height: 40px;
 					}
-					.el-select /deep/ .is-disabled .el-input__inner {
+					.el-select ::v-deep .is-disabled .el-input__inner {
 						border: 0px solid #ddd;
 						cursor: not-allowed;
 						border-radius: 4px;
@@ -994,7 +962,7 @@
 					.el-date-editor {
 						width: 100%;
 					}
-					.el-date-editor /deep/ .el-input__inner {
+					.el-date-editor ::v-deep .el-input__inner {
 						border: 0px solid #eee;
 						border-radius: 0px;
 						padding: 0 10px 0 30px;
@@ -1006,7 +974,7 @@
 						font-size: 16px;
 						height: 40px;
 					}
-					.el-date-editor /deep/ .el-input__inner[readonly="readonly"] {
+					.el-date-editor ::v-deep .el-input__inner[readonly="readonly"] {
 						border: 0;
 						cursor: not-allowed;
 						border-radius: 4px;
@@ -1019,7 +987,7 @@
 						font-size: 16px;
 						height: 40px;
 					}
-					/deep/ .el-upload--picture-card {
+					::v-deep .el-upload--picture-card {
 						background: transparent;
 						border: 0;
 						border-radius: 0;
@@ -1028,7 +996,7 @@
 						line-height: initial;
 						vertical-align: middle;
 					}
-					/deep/ .upload .upload-img {
+					::v-deep .upload .upload-img {
 						border: 1px solid #eee;
 						cursor: pointer;
 						border-radius: 0px;
@@ -1039,7 +1007,7 @@
 						text-align: center;
 						height: 80px;
 					}
-					/deep/ .el-upload-list .el-upload-list__item {
+					::v-deep .el-upload-list .el-upload-list__item {
 						border: 1px solid #eee;
 						cursor: pointer;
 						border-radius: 0px;
@@ -1052,7 +1020,7 @@
 						font-size: 14px;
 						line-height: 1.8;
 					}
-					/deep/ .el-upload .el-icon-plus {
+					::v-deep .el-upload .el-icon-plus {
 						border: 1px solid #eee;
 						cursor: pointer;
 						border-radius: 0px;
@@ -1063,11 +1031,11 @@
 						text-align: center;
 						height: 80px;
 					}
-					/deep/ .el-upload__tip {
+					::v-deep .el-upload__tip {
 						color: #666;
 						font-size: 15px;
 					}
-					/deep/ .el-input__inner::placeholder {
+					::v-deep .el-input__inner::placeholder {
 						color: #123;
 						font-size: 16px;
 					}
@@ -1081,17 +1049,17 @@
 						font-size: 14px;
 						line-height: 32px;
 					}
-					.editor /deep/.ql-toolbar {
+					.editor ::v-deep.ql-toolbar {
 						border: 0px solid #eee;
 						background: none;
 						border-width: 0px 0px 0;
 					}
-					.editor /deep/.ql-container {
+					.editor ::v-deep.ql-container {
 						border: 0px solid #eee;
 						background: none;
 						min-height: 180px;
 					}
-					.editor /deep/.ql-container .ql-blank::before {
+					.editor ::v-deep.ql-container .ql-blank::before {
 						color: #999;
 					}
 					.balance-item {
@@ -1099,7 +1067,7 @@
 						.el-input {
 							width: auto;
 						}
-						.el-input /deep/ .el-input__inner {
+						.el-input ::v-deep .el-input__inner {
 							border: 0px solid #eee;
 							border-radius: 0px;
 							padding: 0 12px;
@@ -1210,4 +1178,8 @@
 			}
 		}
 	}
+.rc-quick { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 14px;
+  span { text-align: center; padding: 12px 0; border: 1.5px solid #e5ece8; border-radius: 12px; cursor: pointer; font-weight: 700; &.on { border-color: #07c160; color: #07c160; background: #f0fdf4; } } }
+.rc-method { display: flex; align-items: center; gap: 12px; margin-top: 16px; padding: 14px; border: 1.5px solid #07c160; border-radius: 12px; background: #f0fdf4; position: relative;
+  img { width: 36px; height: 36px; } p { margin: 4px 0 0; font-size: 12px; color: #64748b; } i { position: absolute; right: 12px; color: #07c160; font-size: 18px; } }
 </style>

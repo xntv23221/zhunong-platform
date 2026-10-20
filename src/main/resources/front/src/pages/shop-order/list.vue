@@ -76,9 +76,10 @@
 			<el-table-column label="审核回复" prop="shhf"></el-table-column>
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
-					<el-button v-show="activeName == '未支付'" type="success" :style='{"margin":"2px auto",}' size="mini" @click="beforePay(scope.row)">支付</el-button>
+					<el-button v-show="activeName == '未支付' && scope.row.type != 2" type="success" :style='{"margin":"2px auto",}' size="mini" @click="wxPay(scope.row)">微信支付</el-button>
+					<el-button v-show="activeName == '未支付'" :style='{"margin":"2px auto",}' size="mini" @click="beforePay(scope.row)">余额支付</el-button>
 					<el-button v-show="activeName == '未支付'" type="danger" :style='{"margin":"2px auto",}' size="mini" @click="cancel(scope.row)">取消</el-button>
-					<el-button v-show="activeName == '已支付'" type="danger" :style='{"margin":"2px auto",}' size="mini" @click="refund(scope.row)">{{scope.row.total>0?'退款':'退订'}}</el-button>
+					<el-button v-show="activeName == '已支付'" type="danger" :style='{"margin":"2px auto",}' size="mini" @click="smartRefund(scope.row)">{{scope.row.total>0?'退款':'退订'}}</el-button>
 					<el-button v-if="scope.row.logistics" type="warning" :style='{"margin":"2px auto",}' size="mini" @click="logistics(scope.row)">物流</el-button>
 					<el-button v-if="activeName == '已完成'&&scope.row.sfsh==''&&changeReturnGoods()" type="danger" :style='{"margin":"2px auto",}' size="mini" @click="returnGood(scope.row)">退货</el-button>
 					<el-button v-show="activeName == '已完成'&&scope.row.sfsh==''" type="primary" :style='{"margin":"2px auto",}' size="mini" @click="toDetail(scope.row)">评价</el-button>
@@ -247,6 +248,27 @@
 				});
 			},
 			// 退款
+			wxPay(row) {
+				this.$http.post('wxpay/create', {bizType: 'ORDER', orderids: [row.orderid]}).then(res => {
+					if (res.data && res.data.code === 0) this.$router.push({path: '/index/wxpay/cashier', query: {no: res.data.data.out_trade_no}})
+					else this.$message.error(res.data.msg)
+				})
+			},
+			// 微信支付(模拟)的订单原路退款，其余走原余额退款逻辑
+			smartRefund(row) {
+				this.$http.get('wxpay/byOrder/' + row.orderid).then(res => {
+					if (res.data && res.data.code === 0 && res.data.data) {
+						this.$prompt('该订单通过微信支付(模拟)付款，退款将原路退回。请填写退款原因：', '申请退款', {inputValue: '不想要了', confirmButtonText: '确认退款', cancelButtonText: '取消'}).then(({value}) => {
+							this.$http.post('wxpay/refund', {orderid: row.orderid, reason: value}).then(r => {
+								if (r.data && r.data.code === 0) { this.$message.success(r.data.msg); this.getMyOrderList(1) }
+								else this.$message.error(r.data.msg)
+							})
+						}).catch(() => {})
+					} else {
+						this.refund(row)
+					}
+				})
+			},
 			refund(item) {
 				this.$confirm(`${item.total>0?'确定退款吗？退款金额将返回账户中。':'是否退订？'}`, "提示", {
 					confirmButtonText: "确定",
@@ -523,7 +545,7 @@
 	.shangpin {
 		display: flex;
 	}
-	.el-tabs /deep/ .el-tabs__nav-wrap {
+	.el-tabs ::v-deep .el-tabs__nav-wrap {
 		background: #fff;
 		padding: 10px;
 	}

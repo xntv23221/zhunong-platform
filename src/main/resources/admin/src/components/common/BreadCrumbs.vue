@@ -84,13 +84,13 @@
 
 <style lang="scss" scoped>
 	.el-breadcrumb {
-		& /deep/ .el-breadcrumb__separator {
+		& ::v-deep .el-breadcrumb__separator {
 						margin: 0 6px;
 						color: #000;
 						font-weight: 5600;
 					}
 		
-		& /deep/ .el-breadcrumb__inner a {
+		& ::v-deep .el-breadcrumb__inner a {
 						color: #000000;
 						background: none;
 						font-weight: 700;
@@ -98,7 +98,7 @@
 						font-size: 18px;
 					}
 		
-		& /deep/ .el-breadcrumb__inner {
+		& ::v-deep .el-breadcrumb__inner {
 						padding: 4px 8px;
 						color: #000000;
 						background: none;

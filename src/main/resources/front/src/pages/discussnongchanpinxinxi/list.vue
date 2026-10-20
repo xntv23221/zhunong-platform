@@ -328,7 +328,7 @@
 			height: auto;
 			.list-item {
 				margin: 0 5px 0 0;
-				/deep/.el-form-item__content {
+				::v-deep.el-form-item__content {
 					padding: 5px;
 					background: #FFF;
 					display: flex;
@@ -356,7 +356,7 @@
 					width: auto;
 					justify-content: center;
 				}
-				.el-input /deep/ .el-input__inner {
+				.el-input ::v-deep .el-input__inner {
 					border: none;
 					border-radius: 2px;
 					padding: 0 10px;
@@ -372,7 +372,7 @@
 				.el-select {
 					width: 100%;
 				}
-				.el-select /deep/ .el-input__inner {
+				.el-select ::v-deep .el-input__inner {
 					border: 0px solid #ddd;
 					border-radius: 2px;
 					padding: 0 10px;
@@ -388,7 +388,7 @@
 				.el-date-editor {
 					width: 100%;
 				}
-				.el-date-editor /deep/ .el-input__inner {
+				.el-date-editor ::v-deep .el-input__inner {
 					border: 0px solid #ddd;
 					border-radius: 2px;
 					padding: 0 30px;
@@ -502,17 +502,17 @@
 				perspective: 1000px;
 				transition: 0.3s;
 			}
-			.el-table /deep/ .el-table__header-wrapper thead {
+			.el-table ::v-deep .el-table__header-wrapper thead {
 				color: #333;
 				font-weight: 500;
 				width: 100%;
 			}
 			
-			.el-table /deep/ .el-table__header-wrapper thead tr {
+			.el-table ::v-deep .el-table__header-wrapper thead tr {
 				background: #fff;
 			}
 			
-			.el-table /deep/ .el-table__header-wrapper thead tr th {
+			.el-table ::v-deep .el-table__header-wrapper thead tr th {
 				padding: 12px 0;
 				border-color: #eee;
 				border-width: 0 1px 1px 0;
@@ -520,7 +520,7 @@
 				text-align: left;
 			}
 			
-			.el-table /deep/ .el-table__header-wrapper thead tr th .cell {
+			.el-table ::v-deep .el-table__header-wrapper thead tr th .cell {
 				padding: 0 10px;
 				word-wrap: normal;
 				word-break: break-all;
@@ -535,15 +535,15 @@
 			}
 			
 			
-			.el-table /deep/ .el-table__body-wrapper tbody {
+			.el-table ::v-deep .el-table__body-wrapper tbody {
 				width: 100%;
 			}
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr {
 				background: #fff;
 			}
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr td {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 				padding: 12px 0;
 				color: #666;
 				background: #fff;
@@ -554,7 +554,7 @@
 			}
 			
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr:hover td {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr:hover td {
 				padding: 12px 0;
 				color: #333;
 				background: rgba(64, 158, 255, .1);
@@ -564,7 +564,7 @@
 				text-align: left;
 			}
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr td {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 				padding: 12px 0;
 				color: #666;
 				background: #fff;
@@ -574,7 +574,7 @@
 				text-align: left;
 			}
 			
-			.el-table /deep/ .el-table__body-wrapper tbody tr td .cell {
+			.el-table ::v-deep .el-table__body-wrapper tbody tr td .cell {
 				padding: 0 10px;
 				overflow: hidden;
 				word-break: break-all;
@@ -582,7 +582,7 @@
 				line-height: 24px;
 				text-overflow: ellipsis;
 			}
-			.el-table /deep/ .table-view {
+			.el-table ::v-deep .table-view {
 				border: 0;
 				cursor: pointer;
 				border-radius: 4px;
@@ -601,10 +601,10 @@
 					height: 40px;
 				}
 			}
-			.el-table /deep/ .table-view:hover {
+			.el-table ::v-deep .table-view:hover {
 				opacity: 0.8;
 			}
-			.el-table /deep/ .table-btn1 {
+			.el-table ::v-deep .table-btn1 {
 				border: 0;
 				cursor: pointer;
 				border-radius: 4px;
@@ -623,7 +623,7 @@
 					height: 40px;
 				}
 			}
-			.el-table /deep/ .table-btn1:hover {
+			.el-table ::v-deep .table-btn1:hover {
 				opacity: 0.8;
 			}
 			.el-table .el-switch {
@@ -634,7 +634,7 @@
 				align-items: center;
 				height: 30px;
 			}
-			.el-table .el-switch /deep/ .el-switch__label--left {
+			.el-table .el-switch ::v-deep .el-switch__label--left {
 				cursor: pointer;
 				margin: 0 10px 0 0;
 				color: #333;
@@ -645,7 +645,7 @@
 				transition: .2s;
 				height: 30px;
 			}
-			.el-table .el-switch /deep/ .el-switch__label--right {
+			.el-table .el-switch ::v-deep .el-switch__label--right {
 				cursor: pointer;
 				margin: 0 0 0 10px;
 				color: #333;
@@ -656,7 +656,7 @@
 				transition: .2s;
 				height: 30px;
 			}
-			.el-table .el-switch /deep/ .el-switch__core {
+			.el-table .el-switch ::v-deep .el-switch__core {
 				border: 1px solid #0000ff;
 				cursor: pointer;
 				border-radius: 15px;
@@ -669,7 +669,7 @@
 				transition: border-color .3s,background-color .3s;
 				height: 30px;
 			}
-			.el-table .el-switch /deep/ .el-switch__core::after {
+			.el-table .el-switch ::v-deep .el-switch__core::after {
 				border-radius: 100%;
 				top: 1px;
 				left: 1px;
@@ -679,19 +679,19 @@
 				transition: all .3s;
 				height: 26px;
 			}
-			.el-table .el-switch.is-checked /deep/ .el-switch__core::after {
+			.el-table .el-switch.is-checked ::v-deep .el-switch__core::after {
 				margin: 0 0 0 -27px;
 				left: 100%;
 			}
 			
-			.el-table .el-rate /deep/ .el-rate__item {
+			.el-table .el-rate ::v-deep .el-rate__item {
 				cursor: pointer;
 				display: inline-block;
 				vertical-align: middle;
 				font-size: 0;
 				position: relative;
 			}
-			.el-table .el-rate /deep/ .el-rate__item .el-rate__icon {
+			.el-table .el-rate ::v-deep .el-rate__item .el-rate__icon {
 				margin: 0 3px;
 				display: inline-block;
 				font-size: 18px;

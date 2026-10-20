@@ -221,14 +221,14 @@
 				height: auto;
 				.search-item {
 						margin: 0 10px;
-						/deep/ .el-form-item__content {
+						::v-deep .el-form-item__content {
 								display: flex;
 								align-items: center;
 							}
 			.el-input {
 								width: 100%;
 							}
-			.el-input /deep/ .el-input__inner {
+			.el-input ::v-deep .el-input__inner {
 								border: 1px solid #ddd;
 								border-radius: 0px;
 								padding: 0 10px;
@@ -296,17 +296,17 @@
 		width: 100%;
 		display: block;
 	}
-	.el-table /deep/ .el-table__header-wrapper thead {
+	.el-table ::v-deep .el-table__header-wrapper thead {
 		color: #333;
 		font-weight: 500;
 		width: 100%;
 	}
 	
-	.el-table /deep/ .el-table__header-wrapper thead tr {
+	.el-table ::v-deep .el-table__header-wrapper thead tr {
 		background: #fff;
 	}
 	
-	.el-table /deep/ .el-table__header-wrapper thead tr th {
+	.el-table ::v-deep .el-table__header-wrapper thead tr th {
 		padding: 12px 0;
 		border-color: #eee;
 		border-width: 0 1px 1px 0;
@@ -314,7 +314,7 @@
 		text-align: left;
 	}
 	
-	.el-table /deep/ .el-table__header-wrapper thead tr th .cell {
+	.el-table ::v-deep .el-table__header-wrapper thead tr th .cell {
 		padding: 0 10px;
 		word-wrap: normal;
 		word-break: break-all;
@@ -329,15 +329,15 @@
 	}
 	
 	
-	.el-table /deep/ .el-table__body-wrapper tbody {
+	.el-table ::v-deep .el-table__body-wrapper tbody {
 		width: 100%;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr {
 		background: #fff;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 		padding: 12px 0;
 		color: #666;
 		background: #fff;
@@ -348,7 +348,7 @@
 	}
 	
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr:hover td {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr:hover td {
 		padding: 12px 0;
 		color: #333;
 		background: rgba(64, 158, 255, .1);
@@ -358,7 +358,7 @@
 		text-align: left;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 		padding: 12px 0;
 		color: #666;
 		background: #fff;
@@ -368,7 +368,7 @@
 		text-align: left;
 	}
 	
-	.el-table /deep/ .el-table__body-wrapper tbody tr td .cell {
+	.el-table ::v-deep .el-table__body-wrapper tbody tr td .cell {
 		padding: 0 10px;
 		overflow: hidden;
 		word-break: break-all;

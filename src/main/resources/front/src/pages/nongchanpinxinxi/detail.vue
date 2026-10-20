@@ -976,7 +976,7 @@
 					.el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
 					  border-color: none;
 					}
-					/deep/ .el-input-number__decrease {
+					::v-deep .el-input-number__decrease {
 						cursor: pointer;
 						z-index: 1;
 						display: flex;
@@ -995,12 +995,12 @@
 						height: 38px;
 					}
 					
-					/deep/ .el-input-number__decrease i {
+					::v-deep .el-input-number__decrease i {
 						color: #666;
 						font-size: 14px;
 					}
 				
-					/deep/ .el-input-number__increase {
+					::v-deep .el-input-number__increase {
 						cursor: pointer;
 						z-index: 1;
 						display: flex;
@@ -1019,12 +1019,12 @@
 						height: 38px;
 					}
 					
-					/deep/ .el-input-number__increase i {
+					::v-deep .el-input-number__increase i {
 						color: #666;
 						font-size: 14px;
 					}
 					
-					/deep/ .el-input .el-input__inner {
+					::v-deep .el-input .el-input__inner {
 						border: 1px solid #ABDE53;
 						border-radius: 20px;
 						padding: 0 40px;
@@ -1221,10 +1221,10 @@
 			background: none;
 			width: 100%;
 			order: 5;
-			& /deep/ .el-tabs__header .el-tabs__nav-wrap {
+			& ::v-deep .el-tabs__header .el-tabs__nav-wrap {
 				margin-bottom: 0;
 			}
-			/deep/ .el-tabs__header {
+			::v-deep .el-tabs__header {
 				padding: 8px 20px;
 				background: none;
 				display: flex;
@@ -1237,7 +1237,7 @@
 				text-align: center;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item {
+			::v-deep .el-tabs__header .el-tabs__item {
 				border: 0;
 				padding: 0 20px;
 				margin: 0 10px 0 0;
@@ -1256,13 +1256,13 @@
 				height: 40px;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item:hover {
+			::v-deep .el-tabs__header .el-tabs__item:hover {
 				color: #fff;
 				background: url(http://codegen.caihongy.cn/20251216/9edd1be1060643f7be9ac151744c9d60.png) no-repeat center /100% 100%;
 				border-color: #fff;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item.is-active {
+			::v-deep .el-tabs__header .el-tabs__item.is-active {
 				border-radius: 0px;
 				padding: 0 20px;
 				margin: 0 10px 0 0;
@@ -1274,7 +1274,7 @@
 				border-style: solid;
 			}
 			
-			/deep/ .el-tabs__content {
+			::v-deep .el-tabs__content {
 				padding: 15px 5px;
 				color: #333;
 				background: none;
@@ -1292,7 +1292,7 @@
 					justify-content: center;
 					align-items: center;
 					height: auto;
-					/deep/ .el-form-item__label {
+					::v-deep .el-form-item__label {
 						padding: 0 10px 0 0;
 						color: #666;
 						white-space: nowrap;
@@ -1313,19 +1313,19 @@
 						clear: both;
 						font-size: 14px;
 						line-height: 32px;
-						/deep/ .avatar-uploader {
+						::v-deep .avatar-uploader {
 							height: 0;
 							line-height: 0;
 						}
 					}
-					.editor /deep/.ql-toolbar {
+					.editor ::v-deep.ql-toolbar {
 						background: none;
 					}
-					.editor /deep/.ql-container {
+					.editor ::v-deep.ql-container {
 						background: none;
 						min-height: 180px;
 					}
-					.editor /deep/.ql-container .ql-blank::before {
+					.editor ::v-deep.ql-container .ql-blank::before {
 						color: #999;
 					}
 				}

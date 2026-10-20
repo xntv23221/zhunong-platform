@@ -34,6 +34,7 @@ import center from '@/views/center'
 	import discussjishuzhishiku from '@/views/modules/discussjishuzhishiku/list'
 	import discussnongchanpinxinxi from '@/views/modules/discussnongchanpinxinxi/list'
 import config from '@/views/modules/config/list'
+import wxpay from '@/views/modules/wxpay/list'
 
 //2.配置路由   注意：名字
 export const routes = [{
@@ -61,6 +62,11 @@ export const routes = [{
 		name: '个人信息',
 		component: center,
 		meta: {icon:'', title:'center'}
+	}
+	,{
+		path: '/wxpay',
+		name: '模拟支付流水',
+		component: wxpay
 	}
 	,{
 		path: '/yonghu',

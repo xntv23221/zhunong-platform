@@ -10,6 +10,7 @@
 	"dependencies": {
 		"@amap/amap-jsapi-loader": "^1.0.1",
 		"@lucky-canvas/vue": "^0.1.11",
+		"@vue/composition-api": "^1.7.2",
 		"animate.css": "^4.1.1",
 		"autodll-webpack-plugin": "^0.4.2",
 		"axios": "^0.19.2",
@@ -19,10 +20,11 @@
 		"echarts-wordcloud": "^2.1.0",
 		"element-ui": "^2.15.5",
 		"emoji-mart-vue": "^2.6.6",
+		"html2canvas": "^1.4.1",
 		"print-js": "^1.5.0",
 		"qrcode2": "^1.2.3",
 		"swiper": "^5.2.0",
-		"vue": "^2.6.11",
+		"vue": "^2.6.14",
 		"vue-amap": "^0.5.10",
 		"vue-aplayer": "^1.6.1",
 		"vue-baidu-map": "^0.21.22",
@@ -32,8 +34,7 @@
 		"vue-router": "^3.5.2",
 		"vue2-countdown": "^1.0.8",
 		"vuex": "^3.1.1",
-		"watermark-dom": "^2.3.0",
-		"html2canvas": "^1.4.1"
+		"watermark-dom": "^2.3.0"
 	},
 	"devDependencies": {
 		"@vue/cli-plugin-babel": "~4.5.0",
@@ -42,9 +43,9 @@
 		"babel-eslint": "^10.1.0",
 		"eslint": "^6.7.2",
 		"eslint-plugin-vue": "^6.2.2",
-		"node-sass": "^4.13.1",
+		"sass": "1.32.13",
 		"sass-loader": "^8.0.2",
-		"vue-template-compiler": "^2.6.11"
+		"vue-template-compiler": "^2.6.14"
 	},
 	"eslintConfig": {
 		"root": true,

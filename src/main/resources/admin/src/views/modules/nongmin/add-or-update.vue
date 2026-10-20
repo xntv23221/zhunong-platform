@@ -376,12 +376,12 @@
 	.el-date-editor.el-input {
 		width: auto;
 	}
-	.add-update-preview /deep/ .el-form-item {
+	.add-update-preview ::v-deep .el-form-item {
 		margin: 10px 0px 10px 0 ;
 		display: flex;
 		width: calc(50% - 0px);
 	}
-	.add-update-preview .el-form-item /deep/ .el-form-item__label {
+	.add-update-preview .el-form-item ::v-deep .el-form-item__label {
 		padding: 0 10px;
 		color: #000000;
 		white-space: nowrap;
@@ -394,7 +394,7 @@
 		height: 64px;
 	}
 	
-	.add-update-preview .el-form-item /deep/ .el-form-item__content {
+	.add-update-preview .el-form-item ::v-deep .el-form-item__content {
 		margin-left: auto !important;
 		margin: auto !important;
 		flex: 1;
@@ -403,12 +403,12 @@
 		align-items: flex-start;
 		flex-wrap: wrap;
 	}
-	.add-update-preview /deep/ .el-form-item.editorBox {
+	.add-update-preview ::v-deep .el-form-item.editorBox {
 		margin: 10px 0px 10px 0 ;
 		display: flex;
 		width: 100%;
 	}
-	.add-update-preview .el-form-item.editorBox /deep/ .el-form-item__label {
+	.add-update-preview .el-form-item.editorBox ::v-deep .el-form-item__label {
 		padding: 0 10px;
 		color: #000000;
 		white-space: nowrap;
@@ -420,7 +420,7 @@
 		height: 64px;
 	}
 	
-	.add-update-preview .el-form-item.editorBox /deep/ .el-form-item__content {
+	.add-update-preview .el-form-item.editorBox ::v-deep .el-form-item__content {
 		margin-left: auto !important;
 		padding: 0;
 		margin: auto !important;
@@ -431,7 +431,7 @@
 		align-items: flex-start;
 		flex-wrap: wrap;
 	}
-	.add-update-preview /deep/.el-form-item.editorBox .editor {
+	.add-update-preview ::v-deep.el-form-item.editorBox .editor {
 		border: 1px solid #29C41F;
 		border-radius: 4px;
 		color: #29C41F;
@@ -444,28 +444,28 @@
 		flex-wrap: wrap;
 		height: auto;
 	}
-	.add-update-preview /deep/.el-form-item.editorBox .editor .ql-toolbar {
+	.add-update-preview ::v-deep.el-form-item.editorBox .editor .ql-toolbar {
 		border: 0px solid #555555;
 		background: none;
 		width: 100%;
 		border-width: 0;
 	}
-	.add-update-preview /deep/.el-form-item.editorBox .editor .ql-container {
+	.add-update-preview ::v-deep.el-form-item.editorBox .editor .ql-container {
 		border: 0px solid #555555;
 		background: none;
 		width: 100%;
 		min-height: 200px;
 	}
-	.add-update-preview /deep/.el-form-item.editorBox .editor .ql-container .ql-blank::before {
+	.add-update-preview ::v-deep.el-form-item.editorBox .editor .ql-container .ql-blank::before {
 		color: #999;
 	}
 	
-	.add-update-preview /deep/ .el-form-item.textBox {
+	.add-update-preview ::v-deep .el-form-item.textBox {
 		margin: 10px 0px 10px 0 ;
 		display: flex;
 		width: calc(50% - 0px);
 	}
-	.add-update-preview .el-form-item.textBox /deep/ .el-form-item__label {
+	.add-update-preview .el-form-item.textBox ::v-deep .el-form-item__label {
 		padding: 0 10px;
 		color: #000000;
 		white-space: nowrap;
@@ -478,7 +478,7 @@
 		height: 45px;
 	}
 	
-	.add-update-preview .el-form-item.textBox /deep/ .el-form-item__content {
+	.add-update-preview .el-form-item.textBox ::v-deep .el-form-item__content {
 		margin-left: auto !important;
 		padding: 0;
 		margin: auto !important;
@@ -489,7 +489,7 @@
 		align-items: flex-start;
 		flex-wrap: wrap;
 	}
-	.add-update-preview /deep/.el-form-item.textBox span.text {
+	.add-update-preview ::v-deep.el-form-item.textBox span.text {
 		border: 1px solid #29C41F;
 		border-radius: 4px;
 		padding: 6px 12px;
@@ -505,7 +505,7 @@
 	.add-update-preview .el-input {
 		width: 100%;
 	}
-	.add-update-preview .el-input /deep/ .el-input__inner {
+	.add-update-preview .el-input ::v-deep .el-input__inner {
 		border:  1px solid #29C41F;
 		border-radius: 4px;
 		padding: 0 12px;
@@ -517,7 +517,7 @@
 		font-size: 16px;
 		height: 45px;
 	}
-	.add-update-preview .el-input /deep/ .el-input__inner[readonly="readonly"] {
+	.add-update-preview .el-input ::v-deep .el-input__inner[readonly="readonly"] {
 		border:  0px solid #29C41F;
 		border-radius: 4px;
 		padding: 0 12px;
@@ -533,7 +533,7 @@
 		text-align: left;
 		width: 100%;
 	}
-	.add-update-preview .el-input-number /deep/ .el-input__inner {
+	.add-update-preview .el-input-number ::v-deep .el-input__inner {
 		text-align: left;
 		border:  1px solid #29C41F;
 		border-radius: 4px;
@@ -546,7 +546,7 @@
 		font-size: 16px;
 		height: 45px;
 	}
-	.add-update-preview .el-input-number /deep/ .is-disabled .el-input__inner {
+	.add-update-preview .el-input-number ::v-deep .is-disabled .el-input__inner {
 		text-align: left;
 		border:  0px solid #29C41F;
 		border-radius: 4px;
@@ -559,16 +559,16 @@
 		font-size: 16px;
 		height: auto;
 	}
-	.add-update-preview .el-input-number /deep/ .el-input-number__decrease {
+	.add-update-preview .el-input-number ::v-deep .el-input-number__decrease {
 		display: none;
 	}
-	.add-update-preview .el-input-number /deep/ .el-input-number__increase {
+	.add-update-preview .el-input-number ::v-deep .el-input-number__increase {
 		display: none;
 	}
 	.add-update-preview .el-select {
 		width: 100%;
 	}
-	.add-update-preview .el-select /deep/ .el-input__inner {
+	.add-update-preview .el-select ::v-deep .el-input__inner {
 		border:  1px solid #29C41F;
 		border-radius: 4px;
 		padding: 0 12px;
@@ -579,7 +579,7 @@
 		font-size: 16px;
 		height: 45px;
 	}
-	.add-update-preview .el-select /deep/ .is-disabled .el-input__inner {
+	.add-update-preview .el-select ::v-deep .is-disabled .el-input__inner {
 		border:  0px solid #29C41F;
 		border-radius: 4px;
 		padding: 0 12px;
@@ -594,7 +594,7 @@
 	.add-update-preview .el-date-editor {
 		width: 100%;
 	}
-	.add-update-preview .el-date-editor /deep/ .el-input__inner {
+	.add-update-preview .el-date-editor ::v-deep .el-input__inner {
 		border:  1px solid #29C41F;
 		border-radius: 4px;
 		padding: 0 30px;
@@ -605,7 +605,7 @@
 		font-size: 16px;
 		height: 45px;
 	}
-	.add-update-preview .el-date-editor /deep/ .el-input__inner[readonly="readonly"] {
+	.add-update-preview .el-date-editor ::v-deep .el-input__inner[readonly="readonly"] {
 		border:  0px solid #29C41F;
 		border-radius: 4px;
 		padding: 0 30px;
@@ -695,7 +695,7 @@
 	.add-update-preview .unBtn:hover {
 		opacity: 0.8;
 	}
-	.add-update-preview /deep/ .el-upload--picture-card {
+	.add-update-preview ::v-deep .el-upload--picture-card {
 		background: transparent;
 		border: 0;
 		border-radius: 0;
@@ -705,7 +705,7 @@
 		vertical-align: middle;
 	}
 	
-	.add-update-preview /deep/ .upload .upload-img {
+	.add-update-preview ::v-deep .upload .upload-img {
 		border:  1px solid #29C41F;
 		cursor: pointer;
 		border-radius: 4px;
@@ -719,7 +719,7 @@
 		height: 80px;
 	}
 	
-	.add-update-preview /deep/ .el-upload-list .el-upload-list__item {
+	.add-update-preview ::v-deep .el-upload-list .el-upload-list__item {
 		border:  1px solid #29C41F;
 		cursor: pointer;
 		border-radius: 4px;
@@ -733,7 +733,7 @@
 		height: 80px;
 	}
 	
-	.add-update-preview /deep/ .el-upload .el-icon-plus {
+	.add-update-preview ::v-deep .el-upload .el-icon-plus {
 		border:  1px solid #29C41F;
 		cursor: pointer;
 		border-radius: 4px;
@@ -746,17 +746,17 @@
 		text-align: center;
 		height: 80px;
 	}
-	.add-update-preview /deep/ .el-upload__tip {
+	.add-update-preview ::v-deep .el-upload__tip {
 		padding: 0 10px;
 		color: #000000;
 		font-size: 15px;
 	}
-	.add-update-preview /deep/ .el-form-item.fileupload {
+	.add-update-preview ::v-deep .el-form-item.fileupload {
 		margin: 10px 0px 10px 0 ;
 		display: flex;
 		width: calc(50% - 0px);
 	}
-	.add-update-preview .el-form-item.fileupload /deep/ .el-form-item__label {
+	.add-update-preview .el-form-item.fileupload ::v-deep .el-form-item__label {
 		padding: 0 10px;
 		color: #000000;
 		white-space: nowrap;
@@ -768,7 +768,7 @@
 		height: 64px ;
 	}
 	
-	.add-update-preview .el-form-item.fileupload /deep/ .el-form-item__content {
+	.add-update-preview .el-form-item.fileupload ::v-deep .el-form-item__content {
 		margin-left: auto !important;
 		margin: auto !important;
 		flex: 1;
@@ -778,7 +778,7 @@
 		align-items: flex-start;
 		flex-wrap: wrap;
 	}
-	.add-update-preview .el-form-item.fileupload /deep/ .el-upload-dragger {
+	.add-update-preview .el-form-item.fileupload ::v-deep .el-upload-dragger {
 		border-radius: 4px;
 		outline: none;
 		color: #333;
@@ -792,25 +792,25 @@
 		flex-wrap: wrap;
 		height: 100px;
 	}
-	.add-update-preview .el-form-item.fileupload .el-upload-dragger /deep/ .el-icon-upload {
+	.add-update-preview .el-form-item.fileupload .el-upload-dragger ::v-deep .el-icon-upload {
 		margin: 0;
 		color: #206cb480;
 		width: 100%;
 		font-size: 66px;
 	}
-	.add-update-preview .el-form-item.fileupload .el-upload-dragger /deep/ .el-upload__text {
+	.add-update-preview .el-form-item.fileupload .el-upload-dragger ::v-deep .el-upload__text {
 		color: #606266;
 		textalign: center;
 		width: 100%;
 		fontsize: 14px;
 		line-height: 1;
 	}
-	.add-update-preview .el-form-item.fileupload .el-upload-dragger /deep/ .el-upload__text em {
+	.add-update-preview .el-form-item.fileupload .el-upload-dragger ::v-deep .el-upload__text em {
 		fontstyle: normal;
 		color: #409EFF;
 	}
 	
-	.add-update-preview .el-textarea /deep/ .el-textarea__inner {
+	.add-update-preview .el-textarea ::v-deep .el-textarea__inner {
 		border-radius: 4px;
 		padding: 12px;
 		outline: none;
@@ -822,7 +822,7 @@
 		border-style: solid;
 		height: auto;
 	}
-	.add-update-preview .el-textarea /deep/ .el-textarea__inner[readonly="readonly"] {
+	.add-update-preview .el-textarea ::v-deep .el-textarea__inner[readonly="readonly"] {
 		border-radius: 4px;
 		padding: 12px;
 		outline: none;
@@ -835,7 +835,7 @@
 		border-style: solid;
 		height: auto;
 	}
-	.add-update-preview /deep/ .el-form-item.btn {
+	.add-update-preview ::v-deep .el-form-item.btn {
 		padding: 0 30px;
 		margin: 30px  auto 0 auto;
 		background: none;
@@ -970,7 +970,7 @@
 			opacity: 0.8;
 		}
 	}
-	.add-update-preview .el-form-item.btn /deep/ .el-form-item__label {
+	.add-update-preview .el-form-item.btn ::v-deep .el-form-item__label {
 		padding: 0 10px;
 		color: #000000;
 		white-space: nowrap;
@@ -983,7 +983,7 @@
 		height: 64px;
 	}
 	
-	.add-update-preview .el-form-item.btn /deep/ .el-form-item__content {
+	.add-update-preview .el-form-item.btn ::v-deep .el-form-item__content {
 		margin-left: auto !important;
 		margin: auto !important;
 		flex: 1;

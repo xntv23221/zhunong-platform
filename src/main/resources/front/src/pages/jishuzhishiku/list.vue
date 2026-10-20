@@ -305,7 +305,7 @@
 			height: auto;
 			.list-item {
 				margin: 0 5px 0 0;
-				/deep/.el-form-item__content {
+				::v-deep.el-form-item__content {
 					padding: 5px;
 					background: #FFF;
 					display: flex;
@@ -333,7 +333,7 @@
 					width: auto;
 					justify-content: center;
 				}
-				.el-input /deep/ .el-input__inner {
+				.el-input ::v-deep .el-input__inner {
 					border: none;
 					border-radius: 2px;
 					padding: 0 10px;
@@ -349,7 +349,7 @@
 				.el-select {
 					width: 100%;
 				}
-				.el-select /deep/ .el-input__inner {
+				.el-select ::v-deep .el-input__inner {
 					border: 0px solid #ddd;
 					border-radius: 2px;
 					padding: 0 10px;
@@ -365,7 +365,7 @@
 				.el-date-editor {
 					width: 100%;
 				}
-				.el-date-editor /deep/ .el-input__inner {
+				.el-date-editor ::v-deep .el-input__inner {
 					border: 0px solid #ddd;
 					border-radius: 2px;
 					padding: 0 30px;
@@ -702,7 +702,7 @@
 			box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
 			.list-item {
 				margin: 0;
-				/deep/.el-form-item__content {
+				::v-deep.el-form-item__content {
 					padding: 0;
 					background: #fff;
 					border: 1px solid #e5e7eb;
@@ -713,8 +713,8 @@
 					color: #111827;
 					font-weight: 500;
 				}
-				.el-input /deep/ .el-input__inner,
-				.el-select /deep/ .el-input__inner {
+				.el-input ::v-deep .el-input__inner,
+				.el-select ::v-deep .el-input__inner {
 					width: 180px;
 					height: 46px;
 					line-height: 46px;
@@ -770,8 +770,8 @@
 		.list-preview .list-form-pv .list-btn-box {
 			width: 100%;
 		}
-		.list-preview .list-form-pv .list-item .el-input /deep/ .el-input__inner,
-		.list-preview .list-form-pv .list-item .el-select /deep/ .el-input__inner {
+		.list-preview .list-form-pv .list-item .el-input ::v-deep .el-input__inner,
+		.list-preview .list-form-pv .list-item .el-select ::v-deep .el-input__inner {
 			width: 100%;
 		}
 		.list-preview .list .list5 {

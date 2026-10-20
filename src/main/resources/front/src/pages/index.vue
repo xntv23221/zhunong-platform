@@ -1,95 +1,91 @@
 <template>
 	<div class="main-containers">
-		<div class="body-containers">
-			<div class="top-container">
-				<!-- info -->
-				<div class="top_title">
-					<img class="site-logo" :src="projectLogoUrl" alt="高校助农互联网商城logo" @click="goMenu('/index/home')">
-					<span @click="goMenu('/index/home')">高校助农互联网商城</span>
+		<header class="ag-header">
+			<div class="ag-header-inner">
+				<div class="ag-brand" @click="goMenu('/index/home')">
+					<img :src="projectLogoUrl" alt="logo">
+					<div class="ag-brand-text">
+						<b>高校助农互联网商城</b>
+						<small>从田间到餐桌 · 高校助农</small>
+					</div>
 				</div>
-				<div class="top_tel"></div>
-			
-
-				<el-dropdown class="dropdown-box" @command="handleCommand" trigger="click">
-					<div class="el-dropdown-link" v-show="Token">
-						<img class="top_avatar2" v-show="headportrait&&Token" :src="headportrait?baseUrl + headportrait:require('@/assets/avator.png')">
-						<span class="top_label2">欢迎</span>
-						<span class="top_nickname2">{{username}}</span>
-						<span class="icon iconfont icon-xiala"></span>
-					</div>
-					<div class="el-dropdown-link" v-show="!Token">
-						<div class="login-item" @click="toLogin">
-							<span class="icon iconfont icon-touxiang03"></span>
-							登录
+				<nav class="ag-nav">
+					<a :class="{active: activeMenu=='/index/home'}" @click="goMenu('/index/home')"><i class="el-icon-house"></i>首页</a>
+					<a v-for="(menu, index) in menuList" :key="index" :class="{active: activeMenu==menu.url}" @click="goMenu(menu.url)"><i :class="iconArr[index]"></i>{{menu.name}}</a>
+				</nav>
+				<div class="ag-actions">
+					<a v-if="Token" class="ag-icon-btn" title="购物车" @click="goMenu('/index/cart')"><i class="el-icon-shopping-cart-2"></i><span>购物车</span></a>
+					<a v-if="Token" class="ag-icon-btn" title="我的订单" @click="goMenu('/index/shop-order/order')"><i class="el-icon-tickets"></i><span>订单</span></a>
+					<el-dropdown v-if="Token" @command="handleCommand" trigger="click">
+						<div class="ag-user">
+							<img :src="headportrait?baseUrl + headportrait:require('@/assets/avator.png')">
+							<span>{{username}}</span><i class="el-icon-arrow-down"></i>
 						</div>
-					</div>
-					<el-dropdown-menu class="top-el-dropdown-menu" slot="dropdown" v-show="Token">
-						<el-dropdown-item v-show="notAdmin" class="user-item" :command="'user'">
-							<span class="icon iconfont icon-touxiang09"></span>
-							个人中心
-						</el-dropdown-item>
-						<el-dropdown-item class="register-item" :command="'register'">
-							<span class="icon iconfont icon-shanchu16"></span>
-							退出
-						</el-dropdown-item>
-					</el-dropdown-menu>
-				</el-dropdown>
+						<el-dropdown-menu slot="dropdown">
+							<el-dropdown-item v-if="notAdmin" icon="el-icon-user" command="user">个人中心</el-dropdown-item>
+							<el-dropdown-item icon="el-icon-switch-button" command="register">退出登录</el-dropdown-item>
+						</el-dropdown-menu>
+					</el-dropdown>
+					<template v-else>
+						<el-button size="small" round @click="toLogin">登录</el-button>
+						<el-button size="small" round type="primary" @click="$router.push('/register?role=yonghu')">注册</el-button>
+					</template>
+				</div>
 			</div>
+		</header>
 
-
-			<div class="menu-preview">
-				<el-scrollbar wrap-class="scrollbar-wrapper-horizontal">
-					<el-menu class="el-menu-horizontal-demo" :default-active="activeMenu" :unique-opened="true" mode="horizontal" :router="true" @select="handleSelect">
-						<div class="userinfo">
-						  <el-image v-if="headportrait&&Token" :src="headportrait?baseUrl + headportrait:require('@/assets/avator.png')" fit="cover"></el-image>
-						  <div class="nickname">{{username}}</div>
-						</div>
-						<el-menu-item class="home" index="/index/home" @click.native="goMenu('/index/home')">
-							<span class="icon iconfont icon-shouye-zhihui"></span>
-							<span>系统首页</span>
-						</el-menu-item>
-						<el-menu-item  class="item" v-for="(menu, index) in menuList" :index="menu.url" :key="index" @click.native="goMenu(menu.url)">
-							<i class="icons" :class="iconArr[index]"></i>
-							<span>{{menu.name}}</span>
-						</el-menu-item>
-						<el-menu-item class="item" v-if="Token" index="/index/cart" @click.native="goMenu('/index/cart')">
-							<span class="icon iconfont icon-wuliu8"></span>
-							<span>购物车</span>
-						</el-menu-item>
-					</el-menu>
-				</el-scrollbar>
+		<section class="ag-hero" v-if="activeMenu=='/index/home' && carouselList.length">
+			<div class="swiper-container mySwiper3">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" v-for="item in carouselList" :key="item.id">
+						<el-image @click="carouselClick(item.url)" :src="preHttp(item.value)?item.value:baseUrl + item.value" fit="cover"></el-image>
+					</div>
+				</div>
+				<div class="swiper-pagination"></div>
 			</div>
-
-			<div class="banner-preview" v-if="carouselChange()">
-				<div class="swiper-container mySwiper3">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide" v-for="item in carouselList" :key="item.id">
-							<div class="swiper-item">
-								<el-image v-if="preHttp(item.value)" @click="carouselClick(item.url)" :src="item.value" fit="cover"></el-image>
-								<el-image v-else @click="carouselClick(item.url)" :src="baseUrl + item.value" fit="cover"></el-image>
-							</div>
-						</div>
-					</div>
-					<div class="banner-hidden">
-					</div>
-					<!-- Add Pagination -->
-					<div class="swiper-pagination"></div>
-					<!-- Add Arrows -->
-					<div class="swiper-button-next">
-						<span class="icon iconfont icon-jiantou18"></span>
-					</div>
-					<div class="swiper-button-prev">
-						<span class="icon iconfont icon-jiantou39"></span>
+			<div class="ag-hero-mask">
+				<div class="ag-hero-text">
+					<span class="ag-chip">🌾 高校助农 · 产地直供</span>
+					<h1>让好农货<br>走出田间地头</h1>
+					<p>汇集农户优质农产品、农业技术知识与专家服务，连接农户、高校与消费者。</p>
+					<div class="ag-hero-btns">
+						<el-button type="primary" round @click="goMenu('/index/nongchanpinxinxi')">逛逛农产品 <i class="el-icon-right"></i></el-button>
+						<el-button round class="ghost" @click="goMenu('/index/jishuzhishiku')">技术知识库</el-button>
 					</div>
 				</div>
 			</div>
+		</section>
+		<section class="ag-pagehead" v-else>
+			<div class="ag-pagehead-inner">
+				<h2>{{ pageTitle }}</h2>
+				<p>从田间到餐桌 · 高校助农服务平台</p>
+			</div>
+		</section>
+
+		<main class="ag-main">
 			<router-view id="scrollView"></router-view>
-			
-			<div class="bottom-preview">
-				<div class="footer"><div v-html="bottomContent"></div></div>
+		</main>
+
+		<footer class="ag-footer">
+			<div class="ag-footer-inner">
+				<div>
+					<div class="ag-footer-brand">高校助农互联网商城</div>
+					<p>连接农户、高校与消费者的助农服务平台。</p>
+				</div>
+				<div>
+					<h4>快速入口</h4>
+					<a @click="goMenu('/index/nongchanpinxinxi')">农产品</a>
+					<a @click="goMenu('/index/jishuzhishiku')">技术知识库</a>
+					<a @click="goMenu('/index/cart')">购物车</a>
+				</div>
+				<div>
+					<h4>支付说明</h4>
+					<p>平台支付为<b>模拟微信支付</b>，仅用于课程演示，不产生真实扣款。</p>
+				</div>
 			</div>
-		</div>
-		
+			<div class="ag-footer-copy" v-html="bottomContent || '© 高校助农互联网商城'"></div>
+		</footer>
+
 		<div class="audioAnimation-box" :class="showType?'audioAnimation-box1':''" v-if="audio.length"
 			:style="{'transform':audio[audioIndex].lrc&&audio[audioIndex].lrc!=''?'rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 98px, 0px)':'rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 68px, 0px)'}"
 			style="width: 100%;position: fixed;bottom: 0;left: 0;z-index: 99999;" @mouseover="showmouseover">
@@ -186,11 +182,17 @@ export default {
 
 		// banner
 		setTimeout(()=>{
-			this.mySwiper3Timer = new Swiper(".mySwiper3", {"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"},"pagination":{"el":".swiper-pagination","clickable":true},"slidesPerView":3,"speed":300,"autoplay":{"delay":2500,"disableOnInteraction":false},"effect":"fade"})
+			this.mySwiper3Timer = new Swiper(".mySwiper3", {"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"},"pagination":{"el":".swiper-pagination","clickable":true},"slidesPerView":1,"loop":true,"speed":600,"autoplay":{"delay":4000,"disableOnInteraction":false},"effect":"fade","fadeEffect":{"crossFade":true}})
 		}, 500)
 
 	},
 	computed: {
+		pageTitle() {
+			const p = this.$route.path
+			const m = (this.menuList||[]).find(x => p.indexOf(x.url) === 0)
+			const map = {'/index/cart':'购物车','/index/center':'个人中心','/index/shop-order/order':'我的订单','/index/shop-order/orderConfirm':'确认订单','/index/wxpay/cashier':'微信支付收银台（模拟）','/index/storeup':'我的收藏','/index/shop-address/list':'收货地址'}
+			return map[p] || (m ? m.name : '高校助农互联网商城')
+		},
 		projectLogoUrl() {
 			return this.indexLogoUrl ? `${this.baseUrl}${this.indexLogoUrl}` : this.defaultLogoUrl
 		},
@@ -378,537 +380,41 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
-	.top-el-dropdown-menu {
-		border: 1px solid #EBEEF5;
-		border-radius: 4px;
-		padding: 10px 0;
-		box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-		margin: 18px 0;
-		background: #FFF;
-		.shop-item {
-			border: 0;
-			padding: 0 8px;
-			margin: 0 10px;
-			color: #333;
-			background: #efefef;
-			width: auto;
-			font-size: 14px;
-			line-height: 32px;
-			height: 32px;
-			.icon {
-				color: inherit;
-				font-size: 14px;
-			}
-		}
-		.shop-item:hover {
-			color: #CA1F27;
-			background: none;
-		}
-		.user-item {
-			border: 0;
-			padding: 0 8px;
-			margin: 0 10px;
-			color: #333;
-			background: none;
-			width: auto;
-			font-size: 14px;
-			line-height: 32px;
-			height: 32px;
-			.icon {
-				color: inherit;
-				font-size: 14px;
-			}
-		}
-		.user-item:hover {
-			color: #CA1F27;
-			background: none;
-		}
-		.register-item {
-			border: 0;
-			padding: 0 8px;
-			margin: 0 10px;
-			color: #333;
-			background: none;
-			width: auto;
-			font-size: 14px;
-			line-height: 32px;
-			height: 32px;
-			.icon {
-				color: inherit;
-				font-size: 14px;
-			}
-		}
-		.register-item:hover {
-			color: #CA1F27;
-			background: none;
-		}
-	}
-	.main-containers {
-		.body-containers {
-			padding: 50px 0 0;
-			margin: 0;
-			background: #F2F2F2;
-			min-height: 100vh;
-			position: relative;
-			.top-container {
-				padding: 0 10% 0 10%;
-				z-index: 1002;
-				color: #333;
-				display: flex;
-				font-size: 16px;
-				box-shadow: 0 0px 0px #cfd8dc;
-				background-repeat: no-repeat;
-				top: 0;
-				background: url(http://codegen.caihongy.cn/20251215/128cb9a48591482ca3a1dc5043346722.png);
-				width: 100%;
-				padding: 0 28px;
-				justify-content: flex-end;
-				align-items: center;
-				position: fixed;
-				height: 74px;
-				box-shadow: 0 8px 20px rgba(53, 89, 34, 0.08);
-				.top_title {
-					padding: 0;
-					margin: 0 auto 0 0;
-					display: flex;
-					align-items: center;
-					gap: 14px;
-					.site-logo {
-						width: 62px;
-						height: 62px;
-						min-width: 62px;
-						object-fit: contain;
-						border-radius: 50%;
-						cursor: pointer;
-					}
-					span {
-						padding: 0;
-						color: #16341a;
-						font-weight: 600;
-						font-size: 22px;
-						line-height: 1.3;
-						cursor: pointer;
-					}
-				}
-				.top_tel {
-					margin: 0 10px;
-					color: inherit;
-					font-size: inherit;
-				}
-				.dropdown-box {
-					color: inherit;
-					display: flex;
-					font-size: inherit;
-					.el-dropdown-link {
-						display: flex;
-						align-items: center;
-						.top_avatar2 {
-							border-radius: 100%;
-							margin: 0 10px;
-							object-fit: cover;
-							display: inline-block;
-							width: 36px;
-							height: 36px;
-						}
-						.top_label2 {
-							color: inherit;
-							font-size: inherit;
-							line-height: 32px;
-						}
-						.top_nickname2 {
-							color: inherit;
-							font-size: inherit;
-							line-height: 32px;
-						}
-						.icon {
-							margin: 0 0 0 5px;
-							color: inherit;
-							font-size: inherit;
-						}
-						.login-item {
-							border: 0;
-							padding: 0 8px;
-							margin: 0 10px;
-							color: inherit;
-							background: none;
-							width: auto;
-							font-size: inherit;
-							line-height: 32px;
-							height: 32px;
-							.icon {
-								margin: 0 3px 0 0;
-								color: inherit;
-								font-size: inherit;
-							}
-						}
-						.login-item:hover {
-							cursor: pointer;
-							color: #CA1F27;
-						}
-					}
-				}
-			}
-			.menu-preview {
-				.el-scrollbar {
-					height: 100%;
-			  
-					& /deep/ .scrollbar-wrapper-vertical {
-						overflow-x: hidden;
-					}
-			  
-					& /deep/ .scrollbar-wrapper-horizontal {
-						overflow-y: hidden;
-			  
-						.el-scrollbar__view {
-							white-space: nowrap;
-						}
-					}
-				}
-				padding: 0 20px;
-				background: #ABDE53;
-				width: 100%;
-				border-color: #efefef;
-				border-width: 0 0 1px 0;
-				border-style: solid;
-				margin-top: 74px;
-				height: auto;
-				.el-menu-horizontal-demo {
-					border: 0;
-					padding: 0;
-					margin: 0;
-					background: #ABDE53;
-					display: flex;
-					position: relative;
-					list-style: none;
-					.userinfo {
-						padding: 6px 10px 0;
-						display: none;
-						width: 84px;
-						height: auto;
-						.el-image {
-							border-radius: 20px;
-							object-fit: cover;
-							display: block;
-							width: 100%;
-							height: 32px;
-						}
-						.nickname {
-							color: #333;
-							font-size: 12px;
-							line-height: 1.5;
-							text-align: center;
-						}
-					}
-					// 首页
-					.el-menu-item.home {
-						cursor: pointer;
-						border: 0;
-						padding: 0 20px;
-						color: #FFF;
-						white-space: nowrap;
-						display: flex;
-						font-size: 14px;
-						line-height: 56px;
-						background: none;
-						align-items: center;
-						position: relative;
-						list-style: none;
-						height: 56px;
-					}
-					.el-menu-item.home .icon {
-						padding: 0 10px;
-						margin: 0 10px 0 0;
-						color: inherit;
-						display: none;
-						width: 14px;
-						font-size: 14px;
-						line-height: 56px;
-						height: 56px;
-					}
-					
-					.el-menu-item.home:hover {
-						color: #fff;
-						background: #97CA3F;
-					}
-					
-					.el-menu-item.home.is-active {
-						color: #fff;
-						background: #97CA3F;
-					}
-					// 其他盒子
-					.el-menu-item.item {
-						cursor: pointer;
-						border: 0;
-						padding: 0 20px;
-						color: #FFF;
-						white-space: nowrap;
-						display: flex;
-						font-size: 14px;
-						line-height: 56px;
-						background: none;
-						align-items: center;
-						position: relative;
-						list-style: none;
-						height: 56px;
-					}
-					.el-menu-item.item .icons,.el-menu-item.item .iconfont {
-						padding: 0 10px;
-						margin: 0 10px 0 0;
-						color: inherit;
-						width: 14px;
-						font-size: 14px;
-						line-height: 56px;
-						height: 56px;
-					}
-					
-					.el-menu-item.item:hover {
-						color: #fff;
-						background: #97CA3F;
-					}
-					
-					.el-menu-item.item.is-active {
-						color: #fff;
-						background: #97CA3F;
-					}
-				}
-			}
-			.banner-preview {
-				padding: 0;
-				margin: 0 auto;
-				width: 100%;
-				position: relative;
-				height: 500px;
-				.swiper-button-prev:after {
-					display:none;
-				}
-				.swiper-button-next:after {
-					display:none;
-				}
-				.swiper-slide {
-					.swiper-item {
-						width: 100%;
-						height: 500px;
-						.el-image {
-							object-fit: cover;
-							width: 100%;
-							height: 500px;
-						}
-					}
-				}
-				@keyframes wave1 {from { left: -236px } to { left: -1233px }}
-				@keyframes wave2 {from { left: 0 } to { left: -1009px }}
-				.swiper-pagination {
-					left: 0;
-					bottom: 10px;
-					width: 100%;
-					/deep/ span.swiper-pagination-bullet {
-						border-radius: 100%;
-						margin: 0 4px;
-						background: #000;
-						display: inline-block;
-						width: 8px;
-						opacity: .2;
-						height: 8px;
-					}
-					/deep/ span.swiper-pagination-bullet:hover {
-						background: #fff;
-						opacity: 1;
-					}
-					/deep/ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-						background: #fff;
-						opacity: 1;
-					}
-				}
-				.swiper-button-next {
-					margin: -12px 10% 0 0;
-					top: 50%;
-					.icon {
-						border-radius: 100%;
-						padding: 0 16px;
-						color: #fff;
-						background: #124b53;
-						display: inline-block;
-						width: auto;
-						font-size: 20px;
-						line-height: 48px;
-						opacity: 0.6;
-						height: 48px;
-					}
-				}
-				.swiper-button-prev {
-					margin: -12px 0 0 10%;
-					top: 50%;
-					.icon {
-						border-radius: 100%;
-						padding: 0 16px;
-						color: #fff;
-						background: #124b53;
-						display: inline-block;
-						width: auto;
-						font-size: 20px;
-						line-height: 48px;
-						opacity: 0.6;
-						height: 48px;
-					}
-				}
-			}
-			.bottom-preview {
-				width: 100%;
-				height: auto;
-				.footer {
-					padding: 20px 10%;
-					color: #fff;
-					display: flex;
-					font-size: 16px;
-					min-height: 170px;
-					overflow: hidden;
-					align-content: center;
-					background: #BFF267;
-					width: 100%;
-					justify-content: center;
-					align-items: center;
-					text-align: center;
-					height: auto;
-				}
-			}
-		}
-	}
-	.audioAnimation-box {
-		transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 68px, 0px);
-		-webkit-perspective: 1000px;
-		perspective: 1000px;
-		transition: 0.3s;
-	}
-
-	.audioAnimation-box1 {
-		transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0, 0px) !important;
-	}
-
-	.main-containers .body-containers .top-container,
-	.main-containers .body-containers .menu-preview,
-	.main-containers .body-containers .bottom-preview .footer {
-		background: #fff;
-	}
-	.main-containers .body-containers .top-container {
-		border-bottom: 1px solid #ececec;
-		box-shadow: none;
-	}
-	.main-containers .body-containers .menu-preview {
-		border-bottom: 1px solid #ececec;
-		margin-top: 0;
-	}
-	.main-containers .body-containers .menu-preview .el-menu-horizontal-demo {
-		background: #fff;
-	}
-	.main-containers .body-containers .menu-preview .el-menu-horizontal-demo .el-menu-item.home,
-	.main-containers .body-containers .menu-preview .el-menu-horizontal-demo .el-menu-item.item {
-		color: #334155;
-	}
-	.main-containers .body-containers .menu-preview .el-menu-horizontal-demo .el-menu-item.home:hover,
-	.main-containers .body-containers .menu-preview .el-menu-horizontal-demo .el-menu-item.item:hover,
-	.main-containers .body-containers .menu-preview .el-menu-horizontal-demo .el-menu-item.home.is-active,
-	.main-containers .body-containers .menu-preview .el-menu-horizontal-demo .el-menu-item.item.is-active {
-		color: #111827;
-		background: #f5f5f5;
-	}
-	.main-containers .body-containers .banner-preview {
-		padding: 28px 28px 10px;
-		background: #fff;
-		height: auto;
-	}
-	.main-containers .body-containers .banner-preview .swiper-slide .swiper-item,
-	.main-containers .body-containers .banner-preview .swiper-slide .swiper-item .el-image {
-		height: 420px;
-		border-radius: 28px;
-	}
-	.main-containers .body-containers .banner-preview .swiper-button-next .icon,
-	.main-containers .body-containers .banner-preview .swiper-button-prev .icon {
-		background: rgba(17,24,39,.78);
-	}
-	.main-containers .body-containers .bottom-preview .footer {
-		color: #475569;
-		border-top: 1px solid #ececec;
-		min-height: 96px;
-	}
-
-	.main-containers {
-		.body-containers {
-			padding-top: 74px;
-			background: #fff;
-			.top-container {
-				background: #fff;
-				box-shadow: none;
-				border-bottom: 1px solid #ececec;
-				.top_title {
-					span {
-						color: #1f2933;
-						font-size: 18px;
-						font-weight: 600;
-					}
-					.site-logo {
-						width: 52px;
-						height: 52px;
-						min-width: 52px;
-					}
-				}
-				.dropdown-box {
-					color: #1f2933;
-				}
-			}
-			.menu-preview {
-				margin-top: 0;
-				padding: 0 28px;
-				background: #fff;
-				border-bottom: 1px solid #ececec;
-				.el-menu-horizontal-demo {
-					background: #fff;
-					.el-menu-item.home,
-					.el-menu-item.item {
-						color: #334155;
-						height: 54px;
-						line-height: 54px;
-						border-radius: 0;
-					}
-					.el-menu-item.home:hover,
-					.el-menu-item.item:hover,
-					.el-menu-item.home.is-active,
-					.el-menu-item.item.is-active {
-						color: #111827;
-						background: #f5f5f5;
-					}
-				}
-			}
-			.banner-preview {
-				padding: 24px 28px 8px;
-				background: #fff;
-				height: auto;
-				.swiper-slide .swiper-item,
-				.swiper-slide .swiper-item .el-image {
-					height: 360px;
-					border-radius: 24px;
-				}
-				.swiper-pagination /deep/ span.swiper-pagination-bullet,
-				.swiper-pagination /deep/ span.swiper-pagination-bullet:hover,
-				.swiper-pagination /deep/ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-					background: #111827;
-					opacity: .35;
-				}
-				.swiper-pagination /deep/ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-					opacity: 1;
-				}
-				.swiper-button-next .icon,
-				.swiper-button-prev .icon {
-					background: rgba(17,24,39,.78);
-					color: #fff;
-				}
-			}
-			.bottom-preview .footer {
-				background: #fff;
-				border-top: 1px solid #ececec;
-				color: #475569;
-				min-height: 96px;
-			}
-		}
-	}
+<style lang="scss" scoped>
+$g: #16a34a; $gd: #166534;
+.main-containers { min-height: 100vh; background: var(--ag-bg); display: flex; flex-direction: column; }
+.ag-header { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,.88); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid #e7efe9; }
+.ag-header-inner { max-width: 1240px; margin: 0 auto; height: 68px; padding: 0 24px; display: flex; align-items: center; gap: 32px; }
+.ag-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; flex-shrink: 0;
+  img { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; }
+  b { display: block; font-size: 17px; color: #0f172a; letter-spacing: .5px; }
+  small { color: #64748b; font-size: 12px; } }
+.ag-nav { display: flex; gap: 4px; flex: 1;
+  a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; color: #334155; cursor: pointer; font-size: 14px; transition: .2s;
+    &:hover { background: #f0fdf4; color: $g; }
+    &.active { background: $g; color: #fff; } } }
+.ag-actions { display: flex; align-items: center; gap: 8px; }
+.ag-icon-btn { display: inline-flex; align-items: center; gap: 4px; padding: 8px 12px; border-radius: 10px; color: #334155; cursor: pointer; font-size: 14px;
+  i { font-size: 18px; } &:hover { background: #f0fdf4; color: $g; } }
+.ag-user { display: flex; align-items: center; gap: 8px; padding: 4px 10px 4px 4px; border-radius: 999px; border: 1px solid #e2e8f0; cursor: pointer; background: #fff;
+  img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; } span { font-size: 14px; color: #0f172a; } }
+.ag-hero { position: relative; height: 460px; overflow: hidden;
+  .swiper-container { height: 100%; } .swiper-slide { height: 460px; } .el-image { width: 100%; height: 100%; }
+  ::v-deep .swiper-pagination-bullet-active { background: #fff; } }
+.ag-hero-mask { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgba(5,46,22,.82) 0%, rgba(5,46,22,.45) 45%, rgba(0,0,0,0) 75%); }
+.ag-hero-text { pointer-events: auto; max-width: 1240px; margin: 0 auto; padding: 0 24px; height: 100%; display: flex; flex-direction: column; justify-content: center; color: #fff;
+  h1 { font-size: 46px; line-height: 1.2; margin: 18px 0 14px; font-weight: 800; letter-spacing: 2px; }
+  p { max-width: 460px; color: rgba(255,255,255,.85); font-size: 16px; line-height: 1.8; margin: 0 0 26px; } }
+.ag-chip { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3); font-size: 13px; }
+.ag-hero-btns .ghost { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.5); }
+.ag-pagehead { background: linear-gradient(120deg, #14532d, #16a34a 60%, #4ade80); color: #fff;
+  .ag-pagehead-inner { max-width: 1240px; margin: 0 auto; padding: 28px 24px; }
+  h2 { margin: 0 0 4px; font-size: 24px; } p { margin: 0; opacity: .8; font-size: 13px; } }
+.ag-main { flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 24px; box-sizing: border-box; }
+.ag-footer { background: #0b2b19; color: #a7c4b2; margin-top: 40px;
+  .ag-footer-inner { max-width: 1240px; margin: 0 auto; padding: 40px 24px 24px; display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 32px; }
+  .ag-footer-brand { color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  h4 { color: #fff; margin: 0 0 12px; font-size: 15px; } a { display: block; color: #a7c4b2; cursor: pointer; margin-bottom: 8px; &:hover { color: #4ade80; } }
+  p { font-size: 13px; line-height: 1.8; margin: 0; } b { color: #4ade80; }
+  .ag-footer-copy { border-top: 1px solid rgba(255,255,255,.08); text-align: center; padding: 16px; font-size: 12px; } }
 </style>
