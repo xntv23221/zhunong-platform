@@ -293,7 +293,7 @@ public class NongchanpinxinxiController {
     	for(OrdersEntity o1 : orders) {
     		boolean addFlag = true;
     		for(OrdersEntity o2 : ordersDist) {
-    			if(o1.getGoodid()==o2.getGoodid() || o1.getGoodtype().equals(o2.getGoodtype())) {
+    			if(java.util.Objects.equals(o1.getGoodid(), o2.getGoodid()) || java.util.Objects.equals(o1.getGoodtype(), o2.getGoodtype())) {
     				addFlag = false;
     				break;
     			}
