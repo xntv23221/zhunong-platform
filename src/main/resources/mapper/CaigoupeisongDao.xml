@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CaigoupeisongDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.CaigoupeisongEntity" id="caigoupeisongMap">
+        <result property="yuanliaomingcheng" column="yuanliaomingcheng"/>
+        <result property="yuanliaofenlei" column="yuanliaofenlei"/>
+        <result property="yuanliaozhaopian" column="yuanliaozhaopian"/>
+        <result property="youxiaochengfen" column="youxiaochengfen"/>
+        <result property="jiage" column="jiage"/>
+        <result property="kucun" column="kucun"/>
+        <result property="caigouzongjia" column="caigouzongjia"/>
+        <result property="gaoxiaomingcheng" column="gaoxiaomingcheng"/>
+        <result property="peisongshijian" column="peisongshijian"/>
+        <result property="peisongbeizhu" column="peisongbeizhu"/>
+        <result property="nongminzhanghao" column="nongminzhanghao"/>
+        <result property="peisongzhuangtai" column="peisongzhuangtai"/>
+        <result property="crossuserid" column="crossuserid"/>
+        <result property="crossrefid" column="crossrefid"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.CaigoupeisongVO" >
+		SELECT * FROM caigoupeisong  caigoupeisong         
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.CaigoupeisongVO" >
+		SELECT  caigoupeisong.* FROM caigoupeisong  caigoupeisong 	
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.CaigoupeisongView" >
+
+		SELECT  caigoupeisong.* FROM caigoupeisong  caigoupeisong 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.CaigoupeisongView" >
+		SELECT * FROM caigoupeisong  caigoupeisong <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+
+</mapper>

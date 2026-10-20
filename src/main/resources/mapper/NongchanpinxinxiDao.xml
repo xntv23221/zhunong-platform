@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.NongchanpinxinxiDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.NongchanpinxinxiEntity" id="nongchanpinxinxiMap">
+        <result property="nongchanpinmingcheng" column="nongchanpinmingcheng"/>
+        <result property="nongchanpinleixing" column="nongchanpinleixing"/>
+        <result property="nongchanpinzhaopian" column="nongchanpinzhaopian"/>
+        <result property="chanpinguige" column="chanpinguige"/>
+        <result property="yingyangchengfen" column="yingyangchengfen"/>
+        <result property="waiguantezheng" column="waiguantezheng"/>
+        <result property="chanpinjieshao" column="chanpinjieshao"/>
+        <result property="nongminzhanghao" column="nongminzhanghao"/>
+        <result property="onelimittimes" column="onelimittimes"/>
+        <result property="alllimittimes" column="alllimittimes"/>
+        <result property="price" column="price"/>
+        <result property="clicktime" column="clicktime"/>
+        <result property="discussnum" column="discussnum"/>
+        <result property="onshelves" column="onshelves"/>
+        <result property="storeupnum" column="storeupnum"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.NongchanpinxinxiVO" >
+		SELECT * FROM nongchanpinxinxi  nongchanpinxinxi         
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.NongchanpinxinxiVO" >
+		SELECT  nongchanpinxinxi.* FROM nongchanpinxinxi  nongchanpinxinxi 	
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.NongchanpinxinxiView" >
+
+		SELECT  nongchanpinxinxi.* FROM nongchanpinxinxi  nongchanpinxinxi 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.NongchanpinxinxiView" >
+		SELECT * FROM nongchanpinxinxi  nongchanpinxinxi <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+
+</mapper>
